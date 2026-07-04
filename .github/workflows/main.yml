@@ -1,8 +1,6 @@
 name: GenerateBuilds
 
-on:
-  push:
-    branches: ["*"]
+on: workflow_dispatch
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
