@@ -152,6 +152,7 @@ void NetSession::HandleRelayText(const std::string& text) {
         SPDLOG_INFO("[NetSession] Relay accepted join, waiting on host...");
         HelloMsg hello;
         std::snprintf(hello.displayName, sizeof(hello.displayName), "Guest");
+        hello.characterId = mLocalCharacterId;
         if (mSocket) {
             mSocket->sendBinary(ToPayload(hello));
         }
@@ -180,6 +181,7 @@ void NetSession::HandleHostBinary(const std::string& data) {
                 mClients[senderSlot].connected = true;
             }
             mClients[senderSlot].slot = senderSlot;
+            mClients[senderSlot].characterId = hello.characterId;
 
             WelcomeMsg welcome;
             welcome.assignedSlot = static_cast<uint8_t>(senderSlot);
@@ -198,6 +200,18 @@ void NetSession::HandleHostBinary(const std::string& data) {
             std::lock_guard<std::mutex> lock(mClientsMutex);
             if (mClients[senderSlot].connected) {
                 mClients[senderSlot].lastInput = inputMsg.input;
+            }
+            break;
+        }
+        case MsgType::SelectCharacter: {
+            SelectCharacterMsg select;
+            if (!FromPayload(payload, select)) {
+                return;
+            }
+            std::lock_guard<std::mutex> lock(mClientsMutex);
+            if (mClients[senderSlot].connected) {
+                mClients[senderSlot].characterId = select.characterId;
+                mClients[senderSlot].ready = select.ready;
             }
             break;
         }
@@ -230,6 +244,47 @@ void NetSession::BroadcastSnapshot(uint32_t frame) {
     mPendingSnapshot.frame = frame;
     mPendingSnapshot.playerCount = static_cast<uint8_t>(mPlayerCount.load());
     mSocket->sendBinary(ToRelayUnicast(RELAY_BROADCAST, ToPayload(mPendingSnapshot)));
+}
+
+void NetSession::BroadcastStartRace(const std::string& trackResourceName, uint8_t modeSelection, uint8_t ccSelection,
+                                     const uint8_t characterForSlot[MAX_NET_PLAYERS]) {
+    if (mRole != Role::Host || !mSocket) {
+        return;
+    }
+    StartRaceMsg msg;
+    std::snprintf(msg.trackResourceName, sizeof(msg.trackResourceName), "%s", trackResourceName.c_str());
+    msg.modeSelection = modeSelection;
+    msg.ccSelection = ccSelection;
+    for (int i = 0; i < MAX_NET_PLAYERS; ++i) {
+        msg.characterForSlot[i] = characterForSlot[i];
+    }
+    mSocket->sendBinary(ToRelayUnicast(RELAY_BROADCAST, ToPayload(msg)));
+    SPDLOG_INFO("[NetSession] Broadcasting StartRace: track={} mode={} cc={}", msg.trackResourceName, modeSelection,
+                ccSelection);
+}
+
+bool NetSession::GetGuestCharacter(int slot, uint8_t& outCharacterId) {
+    if (slot < 0 || slot >= MAX_NET_PLAYERS) {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(mClientsMutex);
+    if (!mClients[slot].connected) {
+        return false;
+    }
+    outCharacterId = mClients[slot].characterId;
+    return true;
+}
+
+bool NetSession::GetGuestReady(int slot, bool& outReady) {
+    if (slot < 0 || slot >= MAX_NET_PLAYERS) {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(mClientsMutex);
+    if (!mClients[slot].connected) {
+        return false;
+    }
+    outReady = mClients[slot].ready;
+    return true;
 }
 
 // ---------------------------------------------------------------------------
@@ -320,12 +375,37 @@ void NetSession::HandleClientBinary(const std::string& data) {
             break;
         }
         case MsgType::PlayerLeft: {
-            // Left for the gameplay layer to react to once wired up (e.g. despawn kart).
+            PlayerLeftMsg left;
+            if (!FromPayload(data, left)) {
+                return;
+            }
+            std::lock_guard<std::mutex> lock(mLeftSlotsMutex);
+            mLeftSlots.push_back(left.slot);
+            break;
+        }
+        case MsgType::StartRace: {
+            StartRaceMsg msg;
+            if (!FromPayload(data, msg)) {
+                return;
+            }
+            std::lock_guard<std::mutex> lock(mRaceStartMutex);
+            mPendingRaceStart = msg;
+            mHasPendingRaceStart = true;
             break;
         }
         default:
             break;
     }
+}
+
+bool NetSession::PopPendingRaceStart(StartRaceMsg& out) {
+    std::lock_guard<std::mutex> lock(mRaceStartMutex);
+    if (!mHasPendingRaceStart) {
+        return false;
+    }
+    out = mPendingRaceStart;
+    mHasPendingRaceStart = false;
+    return true;
 }
 
 void NetSession::SendLocalInput(const InputState& input) {
@@ -338,12 +418,33 @@ void NetSession::SendLocalInput(const InputState& input) {
     mSocket->sendBinary(ToPayload(msg));
 }
 
+void NetSession::SendCharacterSelect(uint8_t characterId, bool ready) {
+    if (mRole != Role::Client || !mSocket) {
+        return;
+    }
+    mLocalCharacterId = characterId;
+    SelectCharacterMsg msg;
+    msg.characterId = characterId;
+    msg.ready = ready;
+    mSocket->sendBinary(ToPayload(msg));
+}
+
 bool NetSession::GetLatestSnapshot(SnapshotMsg& out) {
     std::lock_guard<std::mutex> lock(mSnapshotMutex);
     if (!mHasSnapshot) {
         return false;
     }
     out = mLatestSnapshot;
+    return true;
+}
+
+bool NetSession::PopPlayerLeftSlot(int& slotOut) {
+    std::lock_guard<std::mutex> lock(mLeftSlotsMutex);
+    if (mLeftSlots.empty()) {
+        return false;
+    }
+    slotOut = mLeftSlots.back();
+    mLeftSlots.pop_back();
     return true;
 }
 

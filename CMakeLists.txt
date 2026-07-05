@@ -429,6 +429,15 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(ixwebsocket)
 target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket)
 
+#=================== nlohmann_json (relay control-frame JSON, Online Multiplayer) ===================
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG        v3.11.3
+)
+FetchContent_MakeAvailable(nlohmann_json)
+target_link_libraries(${PROJECT_NAME} PRIVATE nlohmann_json::nlohmann_json)
+
 #==============================================================================#
 # Libultraship Integration                                                     #
 #==============================================================================#

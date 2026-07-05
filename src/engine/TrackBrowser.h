@@ -112,6 +112,18 @@ public:
         return "";
     }
 
+    // Stable identifier for the currently selected track (e.g. "mk:luigi_raceway"),
+    // consistent across all clients for stock content - unlike GetTrackIndex(),
+    // safe to send over the network (see StartRaceMsg in NetProtocol.h).
+    const char* GetTrackResourceName() {
+        if (mTracks.empty()) return "";
+
+        if (mTracks[mTrackIndex]) {
+            return mTracks[mTrackIndex]->ResourceName.c_str();
+        }
+        return "";
+    }
+
     /**
      * The index setters and getters here are for legacy code support
      * Try not to rely too heavily on these functions especially for custom content.
@@ -197,6 +209,7 @@ size_t TrackBrowser_GetTrackIndex(void);
 const char* TrackBrowser_GetTrackName(void);
 const char* TrackBrowser_GetTrackDebugName(void);
 const char* TrackBrowser_GetTrackLength(void);
+const char* TrackBrowser_GetTrackResourceName(void);
 void TrackBrowser_SetTrackByIdx(size_t trackIndex);
 const char* TrackBrowser_GetTrackNameByIdx(size_t trackIndex);
 const char* TrackBrowser_GetTrackDebugNameByIdx(size_t trackIndex);

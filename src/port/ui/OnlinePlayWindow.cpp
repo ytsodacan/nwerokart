@@ -1,6 +1,8 @@
 #include "port/ui/PortMenu.h"
 #include "port/ui/UIWidgets.h"
+#include "port/ui/OnlinePlayWindow.h"
 #include "port/network/NetSession.h"
+#include "port/network/NetGameplayBridge.h"
 
 #include <imgui.h>
 #include <cstring>
@@ -9,6 +11,15 @@ namespace GameUI {
 extern std::shared_ptr<PortMenu> mPortMenu;
 
 namespace OnlinePlay {
+
+static const char* sCharacterNames[8] = { "Mario", "Luigi", "Yoshi", "Toad", "DK", "Wario", "Peach", "Bowser" };
+
+// This client's in-progress character pick, sent to the host via
+// SelectCharacter whenever it changes - lets each guest run their own
+// character select instead of always defaulting to whatever Hello sent at
+// connect time (character 0 / Mario).
+static uint8_t sLocalCharacterSelection = 0;
+static bool sLocalReady = false;
 
 // Default relay - your always-on VPS relay, not a per-host tunnel. Editable in
 // case you ever want to point at a different relay (self-hosted test instance, etc).
@@ -32,6 +43,15 @@ const char* StatusLabel(Net::ConnectionStatus status) {
 }
 
 void DrawOnlinePlayPanel(WidgetInfo& info) {
+    using namespace UIWidgets;
+    DrawOnlinePlayPanelContent();
+}
+
+// Actual panel contents, independent of the sidebar-widget vs standalone-window
+// distinction - shared by both DrawOnlinePlayPanel() (sidebar widget, inside the
+// F1 overlay) and OnlineLobbyWindow (standalone window, opened by a real in-game
+// button - see menus.c's Game Select screen).
+void DrawOnlinePlayPanelContent() {
     using namespace UIWidgets;
     Net::NetSession& session = Net::NetSession::Instance();
     const Net::Role role = session.GetRole();
@@ -101,9 +121,52 @@ void DrawOnlinePlayPanel(WidgetInfo& info) {
             }
             ImGui::Spacing();
             ImGui::Text("Players connected: %d", session.GetConnectedPlayerCount());
+
+            ImGui::Spacing();
+            ImGui::SeparatorText("Guests");
+            for (int slot = 1; slot < Net::MAX_NET_PLAYERS; slot++) {
+                uint8_t characterId = 0;
+                if (!session.GetGuestCharacter(slot, characterId)) {
+                    continue; // not connected
+                }
+                bool ready = false;
+                session.GetGuestReady(slot, ready);
+                const char* characterName = characterId < 8 ? sCharacterNames[characterId] : "?";
+                ImGui::Text("Slot %d: %s - %s", slot, characterName, ready ? "Ready" : "Picking...");
+            }
+
+            ImGui::Spacing();
+            UIWidgets::ButtonOptions startRaceOptions = UIWidgets::ButtonOptions().Tooltip(
+                "Sends every connected guest straight into a race with your current track/mode/character "
+                "selections - skips their local menus entirely.");
+            if (UIWidgets::Button("Start Race", startRaceOptions)) {
+                NetGameplay_HostStartRace();
+            }
         } else {
             if (status == Net::ConnectionStatus::Connected) {
                 ImGui::Text("Playing as slot %d", session.GetLocalSlot());
+
+                ImGui::Spacing();
+                ImGui::SeparatorText("Pick Your Character");
+                for (int i = 0; i < 8; i++) {
+                    if (i > 0) {
+                        ImGui::SameLine();
+                    }
+                    bool selected = (sLocalCharacterSelection == i);
+                    if (selected) {
+                        ImGui::PushStyleColor(ImGuiCol_Button, UIWidgets::ColorValues.at(UIWidgets::Colors::Neuro));
+                    }
+                    if (ImGui::Button(sCharacterNames[i])) {
+                        sLocalCharacterSelection = static_cast<uint8_t>(i);
+                        sLocalReady = true;
+                        session.SendCharacterSelect(sLocalCharacterSelection, sLocalReady);
+                    }
+                    if (selected) {
+                        ImGui::PopStyleColor();
+                    }
+                }
+                ImGui::Spacing();
+                ImGui::Text("Waiting for the host to start the race...");
             }
         }
 
@@ -135,6 +198,27 @@ void RegisterOnlinePlayWidgets() {
 }
 
 static RegisterMenuInitFunc initFunc(RegisterOnlinePlayWidgets);
+
+// ---------------------------------------------------------------------------
+// Standalone window - opened by a real in-game button (Z on the Game Select
+// screen), independent of the F1 debug/enhancements overlay entirely.
+// ---------------------------------------------------------------------------
+class OnlineLobbyWindow : public Ship::GuiWindow {
+  public:
+    using GuiWindow::GuiWindow;
+
+  protected:
+    void InitElement() override {}
+    void UpdateElement() override {}
+    void DrawElement() override {
+        DrawOnlinePlayPanelContent();
+    }
+};
+
+std::shared_ptr<Ship::GuiWindow> CreateOnlineLobbyWindow() {
+    return std::make_shared<OnlineLobbyWindow>("gOnlineLobbyWindowOpen", false, "Online Multiplayer",
+                                                ImVec2(420, 520));
+}
 
 } // namespace OnlinePlay
 } // namespace GameUI

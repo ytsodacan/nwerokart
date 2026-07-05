@@ -18,6 +18,7 @@
 #include <fast/Fast3dWindow.h>
 #include "port/Engine.h"
 #include "PortMenu.h"
+#include "port/ui/OnlinePlayWindow.h"
 
 extern "C" {
 extern s32 gGamestateNext;
@@ -38,6 +39,7 @@ std::shared_ptr<Ship::GuiWindow> mSceneExplorerWindow;
 std::shared_ptr<Ship::GuiWindow> mPropertiesWindow;
 std::shared_ptr<Ship::GuiWindow> mTrackPropertiesWindow;
 std::shared_ptr<Ship::GuiWindow> mContentBrowserWindow;
+std::shared_ptr<Ship::GuiWindow> mOnlineLobbyWindow;
 
 void SetupGuiElements() {
     auto gui = Ship::Context::GetInstance()->GetWindow()->GetGui();
@@ -85,6 +87,9 @@ void SetupGuiElements() {
     mContentBrowserWindow =
         std::make_shared<TrackEditor::ContentBrowserWindow>("gEditorEnabled", "Content Browser");
     gui->AddGuiWindow(mContentBrowserWindow);
+
+    mOnlineLobbyWindow = GameUI::OnlinePlay::CreateOnlineLobbyWindow();
+    gui->AddGuiWindow(mOnlineLobbyWindow);
 }
 
 void Destroy() {
@@ -96,6 +101,7 @@ void Destroy() {
     mPropertiesWindow = nullptr;
     mTrackPropertiesWindow = nullptr;
     mContentBrowserWindow = nullptr;
+    mOnlineLobbyWindow = nullptr;
 }
 
 std::string GetWindowButtonText(const char* text, bool menuOpen) {

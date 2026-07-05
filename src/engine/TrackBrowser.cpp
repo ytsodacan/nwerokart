@@ -109,6 +109,10 @@ extern "C" const char* TrackBrowser_GetTrackLength(void) {
     return TrackBrowser::Instance->GetTrackLength();
 }
 
+extern "C" const char* TrackBrowser_GetTrackResourceName(void) {
+    return TrackBrowser::Instance->GetTrackResourceName();
+}
+
 extern "C" void TrackBrowser_SetTrackByIdx(size_t trackIndex) {
     TrackBrowser::Instance->SetTrackByIdx(trackIndex);
 }

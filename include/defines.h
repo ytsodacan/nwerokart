@@ -157,6 +157,7 @@ enum PlayerId {
 #define TIME_TRIALS 1
 #define VERSUS 2
 #define BATTLE 3
+#define ONLINE_PLAY 4 // Added: online multiplayer, 1P mode-select only (see gGameModePlayerSelection)
 
 /**
  * @brief Options for gCCSelection

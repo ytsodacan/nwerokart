@@ -3,6 +3,7 @@
 
 #include <cstdint>
 #include <cstring>
+#include <string>
 
 // Binary wire protocol shared between host and client over the WebSocket relay.
 // Each ix::WebSocket message == exactly one of these structs (no extra framing needed,
@@ -25,23 +26,25 @@ enum class MsgType : uint8_t {
     PlayerLeft = 6, // host -> client(s): a player disconnected
     Ping = 7,
     Pong = 8,
+    StartRace = 9,  // host -> client(s): race is starting now, here's what to load
+    SelectCharacter = 10, // client -> host: guest changed their character pick / ready state
 };
 
 enum ButtonBits : uint16_t {
-    BTN_A = 1 << 0,
-    BTN_B = 1 << 1,
-    BTN_Z = 1 << 2,
-    BTN_START = 1 << 3,
-    BTN_L = 1 << 4,
-    BTN_R = 1 << 5,
-    BTN_CUP = 1 << 6,
-    BTN_CDOWN = 1 << 7,
-    BTN_CLEFT = 1 << 8,
-    BTN_CRIGHT = 1 << 9,
-    BTN_DUP = 1 << 10,
-    BTN_DDOWN = 1 << 11,
-    BTN_DLEFT = 1 << 12,
-    BTN_DRIGHT = 1 << 13,
+    NET_BTN_A = 1 << 0,
+    NET_BTN_B = 1 << 1,
+    NET_BTN_Z = 1 << 2,
+    NET_BTN_START = 1 << 3,
+    NET_BTN_L = 1 << 4,
+    NET_BTN_R = 1 << 5,
+    NET_BTN_CUP = 1 << 6,
+    NET_BTN_CDOWN = 1 << 7,
+    NET_BTN_CLEFT = 1 << 8,
+    NET_BTN_CRIGHT = 1 << 9,
+    NET_BTN_DUP = 1 << 10,
+    NET_BTN_DDOWN = 1 << 11,
+    NET_BTN_DLEFT = 1 << 12,
+    NET_BTN_DRIGHT = 1 << 13,
 };
 
 #pragma pack(push, 1)
@@ -54,6 +57,10 @@ struct HelloMsg {
     MsgHeader header{ MsgType::Hello };
     uint32_t protocolVersion = PROTOCOL_VERSION;
     char displayName[32] = {};
+    // This guest's currently-selected character (from their own local character
+    // select screen, before ever connecting) - lets the host spawn them as the
+    // right character instead of a generic CPU when the race actually starts.
+    uint8_t characterId = 0;
 };
 
 struct WelcomeMsg {
@@ -103,6 +110,27 @@ struct SnapshotMsg {
 struct PlayerLeftMsg {
     MsgHeader header{ MsgType::PlayerLeft };
     uint8_t slot = 0;
+};
+
+// Host -> guest(s): sent once when the host actually starts the race. Lets every
+// guest skip their own local track/mode/character menus entirely and jump straight
+// into the same race, instead of each machine independently starting its own local
+// race that only happens to be talking to the same relay room.
+struct StartRaceMsg {
+    MsgHeader header{ MsgType::StartRace };
+    char trackResourceName[64] = {}; // matches TrackInfo::ResourceName, consistent across stock-content clients
+    uint8_t modeSelection = 0;       // GRAND_PRIX / VERSUS / TIME_TRIALS / BATTLE
+    uint8_t ccSelection = 0;
+    uint8_t characterForSlot[MAX_NET_PLAYERS] = {};
+};
+
+// Guest -> host, sendable any time after connecting (not just baked into Hello) -
+// lets a guest change their character pick, or flip ready on/off, while sitting
+// in the host's Online Play panel waiting for the race to start.
+struct SelectCharacterMsg {
+    MsgHeader header{ MsgType::SelectCharacter };
+    uint8_t characterId = 0;
+    bool ready = false;
 };
 
 #pragma pack(pop)

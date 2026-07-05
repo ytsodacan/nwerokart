@@ -39,6 +39,7 @@
 #include "engine/wasm.h"
 #include "port/Game.h"
 #include "port/Engine.h"
+#include "port/network/NetGameplayBridge.h"
 #include "engine/Matrix.h"
 
 // Declarations (not in this file)
@@ -804,6 +805,10 @@ void race_logic_loop(void) {
 
     // End of frame cleanup of actors, objects, etc.
     CM_RunGarbageCollector();
+
+    // Broadcast/apply this frame's authoritative kart state for online play.
+    // No-op when no NetSession is active.
+    NetGameplay_PerFrameSimSync((u32) gGlobalTimer);
 }
 
 /**
@@ -1162,12 +1167,30 @@ void thread5_iteration(void) {
     }
     // Update the gamestate if it has changed (racing, menus, credits, etc.).
     if (gGamestateNext != gGamestate) {
-        gGamestate = gGamestateNext;
-        update_gamestate();
+        // Online guests can only enter RACING via an authorized StartRace from
+        // the host - block any transition their own local menus tried to
+        // trigger instead, so a guest can never wander into a race that has
+        // nothing to do with what the host actually started. No-op for the
+        // host or when no session is active.
+        if (gGamestateNext == RACING && NetGameplay_ShouldBlockRaceTransition()) {
+            gGamestateNext = gGamestate;
+        } else {
+            if (gGamestateNext == RACING) {
+                NetGameplay_ConsumeRaceAuthorization();
+            }
+            gGamestate = gGamestateNext;
+            update_gamestate();
+        }
     }
     profiler_log_thread5_time(THREAD5_START);
     config_gfx_pool();
     read_controllers();
+    NetGameplay_PerFrameInput();
+    // If we're a guest and the host just pressed "Start Race", jump straight
+    // into the race with the host's chosen track/mode/characters instead of
+    // waiting on our own local menu navigation. No-op if nothing pending, or
+    // if this session isn't a client.
+    NetGameplay_ClientPollStartRace();
     FB_CreateFramebuffers();
     clear_framebuffer(0); // Clear the framebuffer
     game_state_handler();

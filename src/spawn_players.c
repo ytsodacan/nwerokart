@@ -28,6 +28,7 @@
 #include "effects.h"
 #include "decode.h"
 #include "port/Game.h"
+#include "port/network/NetGameplayBridge.h"
 
 f32 D_80165210[8];
 f32 D_80165230[8];
@@ -875,6 +876,10 @@ void func_8003BE30(void) {
     func_80039AE4();
 }
 
+// Forward declared - defined below, called from func_8003C0F0() before its
+// own definition appears in this file.
+static void net_fixup_players_for_session(void);
+
 void func_8003C0F0(void) {
     if (gModeSelection == BATTLE) {
         func_8000EEDC();
@@ -885,6 +890,58 @@ void func_8003C0F0(void) {
     // The tour delays player spawning until the end of the tour
     if ((CM_IsTourEnabled() == false) || (Editor_IsPaused() == true)) {
         spawn_and_set_player_spawns();
+    }
+
+    // Online multiplayer: local spawn logic above only knows about
+    // gCharacterSelections[] (the host's own local splitscreen players) and
+    // fills every other slot in with a CPU racer. Force every slot occupied
+    // by a connected network guest back to a real human player with that
+    // guest's actual chosen character, and recompute the character-dependent
+    // kart stats the same way spawn_player() would have if it had known.
+    // No-op on a client, or on a host with no guests connected.
+    net_fixup_players_for_session();
+}
+
+// See comment at call site in func_8003C0F0(). Race-mode scope only (the
+// networking layer doesn't currently sync Battle mode).
+static void net_fixup_players_for_session(void) {
+    s32 slot;
+
+    if (gModeSelection == BATTLE) {
+        return;
+    }
+
+    for (slot = 1; slot < NUM_PLAYERS; slot++) {
+        s32 characterId = NetGameplay_GetGuestCharacter(slot);
+        Player* player;
+
+        if (characterId < 0) {
+            continue; // not a connected network guest slot
+        }
+
+        player = &gPlayers[slot];
+        player->type = (player->type & ~PLAYER_CPU) | (PLAYER_HUMAN | PLAYER_EXISTS);
+        player->characterId = (u16) characterId;
+        player->kartFriction = gKartFrictionTable[player->characterId];
+        player->boundingBoxSize = gKartBoundingBoxSizeTable[player->characterId];
+        player->kartGravity = gKartGravityTable[player->characterId];
+
+        switch (gModeSelection) {
+            case GRAND_PRIX:
+            case VERSUS:
+                player->unk_084 = D_800E2400[gCCSelection][player->characterId];
+                player->unk_088 = D_800E24B4[gCCSelection][player->characterId];
+                player->unk_210 = D_800E2568[gCCSelection][player->characterId];
+                player->topSpeed = gTopSpeedTable[gCCSelection][player->characterId];
+                break;
+
+            case TIME_TRIALS:
+                player->unk_084 = D_800E2400[CC_100][player->characterId];
+                player->unk_088 = D_800E24B4[CC_100][player->characterId];
+                player->unk_210 = D_800E2568[CC_100][player->characterId];
+                player->topSpeed = gTopSpeedTable[CC_100][player->characterId];
+                break;
+        }
     }
 }
 
@@ -1194,6 +1251,12 @@ void spawn_players_and_cameras(void) {
     Player* player = &gPlayers[0];
     Camera* camera;
 
+    // Force the right split/fullscreen configuration for this session's role
+    // (host with connected guests widens local splitscreen; a client always
+    // forces single fullscreen) before anything below reads gActiveScreenMode
+    // or gPlayerCountSelection1. No-op when no NetSession is active.
+    NetGameplay_ConfigureScreenModeForSession();
+
     // Load textures for balloons and kart shadows
     func_8005D290();
     // Spawn players
@@ -1266,7 +1329,12 @@ void spawn_players_and_cameras(void) {
 }
 
 void spawn_single_player_camera(u32 mode) {
-    Vec3f spawn = {gPlayerOne->pos[0], gPlayerOne->pos[1], gPlayerOne->pos[2]};
+    // On an online client, this fullscreen camera should follow this guest's
+    // own kart (NetSession's local slot), not always gPlayerOne - returns 0
+    // (PLAYER_ONE) unchanged for host/no-session, so this is always safe.
+    s32 localPlayerIndex = NetGameplay_GetLocalCameraPlayerIndex();
+    Player* localPlayer = &gPlayers[localPlayerIndex];
+    Vec3f spawn = {localPlayer->pos[0], localPlayer->pos[1], localPlayer->pos[2]};
     Vec3f spawn2 = {gPlayerTwo->pos[0], gPlayerTwo->pos[1], gPlayerTwo->pos[2]};
 
     // Technically there should be a default case of mode 10 here. Except it never gets used.
@@ -1281,11 +1349,11 @@ void spawn_single_player_camera(u32 mode) {
         }
     }
 
-    Camera* camera = CM_AddCamera(spawn, gPlayerOne->rotation[1], mode);
+    Camera* camera = CM_AddCamera(spawn, localPlayer->rotation[1], mode);
     if (!camera) {
-        CM_ThrowRuntimeError("[spawn_players] [spawn_single_player_camera] NULL camera while attempting to create camera for player one");
+        CM_ThrowRuntimeError("[spawn_players] [spawn_single_player_camera] NULL camera while attempting to create camera for local player");
     }
-    CM_AttachCamera(camera, PLAYER_ONE);
+    CM_AttachCamera(camera, localPlayerIndex);
     gScreenContexts[PLAYER_ONE].camera = camera;
     gScreenContexts[PLAYER_ONE].raceCamera = camera;
 
@@ -1298,11 +1366,11 @@ void spawn_single_player_camera(u32 mode) {
     gScreenContexts[PLAYER_TWO].camera = camera;
     gScreenContexts[PLAYER_TWO].raceCamera = camera;
 
-    camera = CM_AddLookBehindCamera(spawn, gPlayerOne->rotation[1], mode);
+    camera = CM_AddLookBehindCamera(spawn, localPlayer->rotation[1], mode);
     if (!camera) {
-        CM_ThrowRuntimeError("[spawn_players] [spawn_single_player_camera] NULL camera while attempting to create LookBehind camera for player one");
+        CM_ThrowRuntimeError("[spawn_players] [spawn_single_player_camera] NULL camera while attempting to create LookBehind camera for local player");
     }
-    CM_AttachCamera(camera, PLAYER_ONE);
+    CM_AttachCamera(camera, localPlayerIndex);
     gScreenContexts[PLAYER_ONE].lookBehindCamera = camera;
 }
 
