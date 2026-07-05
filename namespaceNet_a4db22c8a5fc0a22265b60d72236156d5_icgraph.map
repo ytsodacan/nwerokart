@@ -1,0 +1,13 @@
+<map id="Net::FromPayload" name="Net::FromPayload">
+<area shape="rect" id="Node000001" title=" " alt="" coords="987,45,1124,70"/>
+<area shape="rect" id="Node000002" href="$classNet_1_1NetSession.html#a540af7b0d2d9dfb0e2469424b6ac5bfc" title=" " alt="" coords="720,5,939,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="973,48,939,43,939,38,973,43"/>
+<area shape="rect" id="Node000003" href="$classNet_1_1NetSession.html#a1437963444af5ac34f2c1df12c4f8f52" title=" " alt="" coords="724,69,935,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="973,72,935,77,934,72,973,66"/>
+<area shape="rect" id="Node000004" href="$classNet_1_1NetSession.html#ae8e7e51a88d0701812145fbd724b2646" title=" " alt="" coords="477,77,672,102"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="710,92,672,92,672,87,710,87"/>
+<area shape="rect" id="Node000005" href="$namespaceGameUI_1_1OnlinePlay.html#a0870c5f72f38757ef08b5a1b6626a034" title=" " alt="" coords="260,69,429,109"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="464,92,430,92,430,87,464,87"/>
+<area shape="rect" id="Node000006" href="$namespaceGameUI_1_1OnlinePlay.html#a7afa8dbd08ca5203d5c9d59c8e6a4721" title=" " alt="" coords="5,69,212,109"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="246,92,212,92,212,87,246,87"/>
+</map>

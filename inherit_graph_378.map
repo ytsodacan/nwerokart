@@ -1,0 +1,9 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classSkyActor.html" title=" " alt="" coords="5,55,84,80"/>
+<area shape="rect" id="Node000001" href="$classSkyCloud.html" title=" " alt="" coords="132,5,215,31"/>
+<area shape="poly" id="edge105_Node000000_Node000001" title=" " alt="" coords="90,47,138,28,140,33,92,52"/>
+<area shape="rect" id="Node000002" href="$classSkySnow.html" title=" " alt="" coords="133,55,213,80"/>
+<area shape="poly" id="edge106_Node000000_Node000002" title=" " alt="" coords="98,65,133,65,133,70,98,70"/>
+<area shape="rect" id="Node000003" href="$classSkyStar.html" title=" " alt="" coords="138,104,209,129"/>
+<area shape="poly" id="edge107_Node000000_Node000003" title=" " alt="" coords="92,83,140,101,138,106,90,88"/>
+</map>

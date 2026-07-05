@@ -1,0 +1,9 @@
+<map id="src/port/resource/type/CourseVtx.h" name="src/port/resource/type/CourseVtx.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="164,5,328,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,191,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,48,133,89,131,84,209,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="215,93,277,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="249,46,249,79,243,79,243,46"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="302,93,406,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="274,43,328,83,325,87,271,48"/>
+</map>

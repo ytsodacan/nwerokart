@@ -1,0 +1,20 @@
+<map id="UIWidgets::DrawFlagArray8" name="UIWidgets::DrawFlagArray8">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,133,208,159"/>
+<area shape="poly" id="edge8_Node000001_Node000001" title=" " alt="" coords="66,135,57,125,61,115,78,109,107,107,142,111,153,115,156,121,152,124,149,119,141,116,107,112,79,114,65,119,62,124,70,131"/>
+<area shape="rect" id="Node000002" href="$namespaceUIWidgets.html#a28268b432c9b36af9e83d12b8b28bb35" title=" " alt="" coords="281,104,442,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="208,132,267,125,267,130,209,137"/>
+<area shape="rect" id="Node000009" href="$structUIWidgets_1_1CheckboxOptions.html#a0dddf57b441e2724b7d7f9b95abb0351" title=" " alt="" coords="256,154,467,194"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="209,154,243,158,242,164,208,160"/>
+<area shape="rect" id="Node000003" href="$namespaceUIWidgets.html#a3afde5e39ce67a2370ecef5ffb427636" title=" " alt="" coords="518,5,737,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="383,101,441,71,514,39,541,31,542,37,516,45,443,75,386,106"/>
+<area shape="rect" id="Node000004" href="$namespaceUIWidgets.html#a330697ff7208bc380bcfe8640b864718" title=" " alt="" coords="515,55,740,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="430,101,544,80,545,85,431,107"/>
+<area shape="rect" id="Node000005" href="$namespaceUIWidgets.html#ae0f4f1b0659f0e53e3077a5acb0c6b05" title=" " alt="" coords="542,104,713,129"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="442,114,528,114,528,119,442,119"/>
+<area shape="rect" id="Node000007" href="$ShipUtils_8cpp.html#a31d87083f0db90738310ec533f7e9d17" title=" " alt="" coords="549,153,706,179"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="431,127,545,148,544,153,430,132"/>
+<area shape="rect" id="Node000008" href="$namespaceUIWidgets.html#a01b8f77a826ec1dcc1ee8c9a21c219d6" title=" " alt="" coords="536,203,719,228"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="438,127,468,140,483,152,493,164,502,177,516,188,533,196,531,201,513,192,498,180,488,168,480,156,465,144,436,132"/>
+<area shape="rect" id="Node000006" href="$string_8c.html#a008e171a518fe0e0352f31b245e03875" title=" " alt="" coords="788,104,847,129"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="713,114,774,114,774,119,713,119"/>
+</map>

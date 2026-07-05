@@ -1,0 +1,19 @@
+<map id="UIWidgets::SliderInt" name="UIWidgets::SliderInt">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,155,156,180"/>
+<area shape="rect" id="Node000002" href="$namespaceUIWidgets.html#aff1b4b5ec89aa4afa79223288c55a91e" title=" " alt="" coords="233,53,373,79"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,152,146,125,203,96,243,80,244,85,205,100,149,129,103,157"/>
+<area shape="rect" id="Node000005" href="$ShipUtils_8cpp.html#a31d87083f0db90738310ec533f7e9d17" title=" " alt="" coords="474,104,631,129"/>
+<area shape="poly" id="edge8_Node000001_Node000005" title=" " alt="" coords="154,152,204,145,460,120,461,125,204,150,155,157"/>
+<area shape="rect" id="Node000006" href="$namespaceUIWidgets.html#a01b8f77a826ec1dcc1ee8c9a21c219d6" title=" " alt="" coords="461,153,644,179"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="156,164,447,164,447,169,156,170"/>
+<area shape="rect" id="Node000007" href="$namespaceUIWidgets.html#ab3668add920a14f28ddc7b864ad9a998" title=" " alt="" coords="208,205,399,231"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="138,178,234,200,233,205,137,183"/>
+<area shape="rect" id="Node000008" href="$namespaceUIWidgets.html#a560e4ab7577da33003569105d9ec736f" title=" " alt="" coords="204,255,403,280"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="100,178,146,209,205,241,225,248,223,253,203,246,143,214,97,182"/>
+<area shape="rect" id="Node000003" href="$namespaceUIWidgets.html#a2af1f9ddf2209195e9ad4c2edefdec19" title=" " alt="" coords="454,5,651,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="370,51,472,31,473,36,371,56"/>
+<area shape="rect" id="Node000004" href="$namespaceUIWidgets.html#a7bf63e353090d99c90ff183fff2b582f" title=" " alt="" coords="451,55,655,80"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="373,64,437,64,437,69,373,69"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="367,76,477,99,476,104,366,81"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="327,76,382,108,452,140,475,147,473,152,450,144,379,112,324,81"/>
+</map>

@@ -1,0 +1,12 @@
+<map id="courses/test_track/model.c" name="courses/test_track/model.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="32,5,173,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,181,112,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,48,57,69,41,94,37,113,38,132,49,168,44,169,33,133,32,112,36,92,53,65,75,44"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="51,101,155,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="105,46,105,87,100,87,100,46"/>
+<area shape="rect" id="Node000004" href="$other__textures_8h.html" title=" " alt="" coords="179,93,339,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="138,43,214,84,211,89,136,48"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="212,136,102,179,100,174,210,131"/>
+<area shape="rect" id="Node000005" href="$align__asset__macro_8h.html" title=" " alt="" coords="181,181,337,207"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="261,134,261,167,256,167,256,134"/>
+</map>

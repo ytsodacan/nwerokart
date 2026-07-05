@@ -1,0 +1,15 @@
+<map id="TrackSections" name="TrackSections">
+<area shape="rect" id="Node000001" title=" " alt="" coords="233,108,343,133"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,5,80,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,37,100,61,137,82,185,98,233,109,232,114,184,103,135,86,97,65,65,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="104,5,165,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="155,39,177,61,203,82,253,106,250,110,200,86,173,65,151,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="189,5,320,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="255,44,256,64,261,83,277,106,273,109,256,85,251,64,250,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="345,5,383,31"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="339,41,325,56,307,84,295,109,290,106,303,81,321,53,335,38"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="407,5,454,31"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="427,45,418,67,403,86,375,104,344,114,343,109,373,99,400,82,413,64,422,43"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="479,5,521,31"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="493,45,480,67,460,86,432,101,402,112,344,121,343,116,401,106,430,96,457,82,475,63,488,42"/>
+</map>

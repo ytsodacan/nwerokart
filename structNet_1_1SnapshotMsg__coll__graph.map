@@ -1,0 +1,20 @@
+<map id="Net::SnapshotMsg" name="Net::SnapshotMsg">
+<area shape="rect" id="Node000001" title=" " alt="" coords="167,211,307,236"/>
+<area shape="rect" id="Node000002" href="$structNet_1_1MsgHeader.html" title=" " alt="" coords="5,123,132,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,153,158,184,210,208,208,213,155,189,98,157"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="29,5,108,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,44,71,123,66,123,66,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="157,123,231,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="207,160,219,185,232,209,227,212,214,188,202,162"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="269,5,335,31"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="301,45,288,110,277,150,263,188,249,212,244,209,258,185,272,148,283,109,296,44"/>
+<area shape="rect" id="Node000006" href="$structNet_1_1KartState.html" title=" " alt="" coords="387,123,502,148"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="313,42,327,71,349,97,370,110,394,120,392,125,368,115,346,101,323,74,308,45"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="405,156,266,213,264,208,403,151"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="393,5,443,31"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="425,43,437,98,443,122,438,123,431,99,420,45"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="467,5,534,31"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="496,45,474,100,457,124,453,121,469,97,491,43"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="558,5,609,31"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="578,45,565,74,544,101,522,115,499,125,496,120,520,110,540,97,561,71,574,43"/>
+</map>

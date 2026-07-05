@@ -1,0 +1,19 @@
+<map id="struct_8018DEE0_entry" name="struct_8018DEE0_entry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="31,343,204,368"/>
+<area shape="rect" id="Node000002" href="$structMkAnimation.html" title="struct for an animation" alt="" coords="84,255,193,280"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,293,121,305,118,324,119,343,113,343,113,324,116,303,121,291"/>
+<area shape="rect" id="Node000003" href="$structMenuTexture.html" title="struct for a texture use in menu mainly" alt="" coords="255,123,361,148"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="284,159,156,256,152,252,280,154"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="116,5,161,31"/>
+<area shape="poly" id="edge8_Node000001_Node000004" title=" " alt="" coords="116,41,61,96,34,133,15,173,8,201,15,230,33,265,57,296,104,340,100,344,53,299,28,268,10,232,3,201,10,171,30,130,57,93,112,38"/>
+<area shape="poly" id="edge7_Node000002_Node000004" title=" " alt="" coords="141,45,141,254,136,254,136,45"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="153,42,172,70,198,97,225,112,256,122,254,127,223,117,194,101,167,74,148,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="218,5,275,31"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="241,44,238,71,245,97,257,111,273,120,270,125,254,115,240,100,233,72,236,44"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="337,5,383,31"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="355,45,333,100,319,124,314,121,328,97,350,43"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="413,5,459,31"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="432,45,420,74,401,101,380,115,358,125,356,120,378,110,397,97,416,71,427,43"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="239,255,286,280"/>
+<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="255,294,247,308,235,321,211,335,186,345,184,340,209,330,232,317,243,305,251,291"/>
+</map>

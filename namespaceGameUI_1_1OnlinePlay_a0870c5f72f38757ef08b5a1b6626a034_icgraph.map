@@ -1,0 +1,5 @@
+<map id="GameUI::OnlinePlay::DrawOnlinePlayPanel" name="GameUI::OnlinePlay::DrawOnlinePlayPanel">
+<area shape="rect" id="Node000001" title=" " alt="" coords="260,5,429,45"/>
+<area shape="rect" id="Node000002" href="$namespaceGameUI_1_1OnlinePlay.html#a7afa8dbd08ca5203d5c9d59c8e6a4721" title=" " alt="" coords="5,5,212,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="246,28,212,28,212,23,246,23"/>
+</map>

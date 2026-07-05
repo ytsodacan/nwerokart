@@ -1,0 +1,18 @@
+<map id="RailroadCrossing" name="RailroadCrossing">
+<area shape="rect" id="Node000001" title=" " alt="" coords="246,361,378,387"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,183,51,209"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="24,222,19,249,19,280,24,310,39,336,52,345,72,353,125,363,187,369,246,371,245,376,186,374,124,369,71,358,50,350,35,339,19,312,13,280,14,249,19,222"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="103,183,164,209"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="128,222,122,249,119,279,123,309,137,336,153,346,180,355,246,365,245,371,178,360,151,351,133,339,118,311,114,279,117,248,123,221"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="257,5,300,31"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="277,45,269,125,268,175,272,225,290,303,310,360,305,362,285,304,267,226,263,175,264,125,272,44"/>
+<area shape="rect" id="Node000006" href="$structCollision.html" title=" " alt="" coords="398,183,477,209"/>
+<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="283,44,293,93,304,118,319,141,333,151,346,156,380,164,415,181,413,186,378,169,345,161,330,156,315,145,299,121,288,94,278,45"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="501,183,632,209"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="555,222,513,281,483,313,448,340,414,356,379,366,378,361,412,351,445,335,479,309,508,278,551,219"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="423,222,323,362,318,359,419,219"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="425,5,471,31"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="449,45,441,183,435,183,444,44"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="656,183,707,209"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="672,222,634,283,606,314,572,340,537,352,487,361,378,372,378,367,487,356,536,347,569,335,602,310,630,279,668,220"/>
+</map>

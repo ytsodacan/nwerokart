@@ -1,0 +1,9 @@
+<map id="animate_character_select_menu" name="animate_character_select_menu">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,13,240,38"/>
+<area shape="rect" id="Node000002" href="$menu__items_8c.html#af01b2a70a7e93b4f9f390ddb5a539a6f" title=" " alt="" coords="288,5,455,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="240,23,274,23,274,28,240,28"/>
+<area shape="rect" id="Node000003" href="$menu__items_8c.html#aed1902cf7e54ee29af3623ee82aa6b1c" title=" " alt="" coords="503,13,708,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="455,23,489,23,489,28,455,28"/>
+<area shape="rect" id="Node000004" href="$menu__items_8c.html#a248768ee2e4ca9ae9cf0a30bfb256859" title=" " alt="" coords="756,13,860,38"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="708,23,742,23,742,28,708,28"/>
+</map>

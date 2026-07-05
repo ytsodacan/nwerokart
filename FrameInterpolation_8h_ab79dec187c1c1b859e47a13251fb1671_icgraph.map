@@ -1,0 +1,9 @@
+<map id="FrameInterpolation_GetCameraEpoch" name="FrameInterpolation_GetCameraEpoch">
+<area shape="rect" id="Node000001" title=" " alt="" coords="292,47,439,87"/>
+<area shape="rect" id="Node000002" href="$classGameCamera.html#a96870ea78675e370cdfd9f65ae134beb" title=" " alt="" coords="5,5,244,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="278,52,243,45,189,33,190,28,245,39,279,47"/>
+<area shape="rect" id="Node000003" href="$classFreeCamera.html#a8cc5e7a4d41e540e96d0008b12a4c057" title=" " alt="" coords="11,55,238,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="279,70,238,70,238,65,279,65"/>
+<area shape="rect" id="Node000004" href="$classTourCamera.html#adfb50a603c5e2b03d9c6dff377976700" title=" " alt="" coords="11,104,238,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="279,88,188,107,187,101,278,82"/>
+</map>

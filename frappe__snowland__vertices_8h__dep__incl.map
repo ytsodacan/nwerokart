@@ -1,0 +1,15 @@
+<map id="include/assets/models/tracks/frappe_snowland/frappe_snowland_vertices.h" name="include/assets/models/tracks/frappe_snowland/frappe_snowland_vertices.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="66,5,274,60"/>
+<area shape="rect" id="Node000002" href="$all__course__model_8h.html" title=" " alt="" coords="5,108,148,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="136,72,97,110,94,106,132,68"/>
+<area shape="rect" id="Node000003" href="$FrappeSnowland_8h.html" title=" " alt="" coords="173,108,354,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="208,68,246,106,243,110,204,72"/>
+<area shape="rect" id="Node000004" href="$AllTracks_8h.html" title=" " alt="" coords="85,203,247,229"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="233,159,181,205,178,201,230,155"/>
+<area shape="rect" id="Node000007" href="$FrappeSnowland_8cpp.html" title=" " alt="" coords="271,196,453,236"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="297,155,342,194,338,198,294,159"/>
+<area shape="rect" id="Node000005" href="$RegisterTracks_8cpp.html" title=" " alt="" coords="8,284,156,324"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="147,240,103,285,99,282,143,237"/>
+<area shape="rect" id="Node000006" href="$Game_8cpp.html" title=" " alt="" coords="181,291,322,317"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="189,237,241,289,238,293,185,241"/>
+</map>

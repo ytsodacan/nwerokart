@@ -1,0 +1,15 @@
+<map id="Net::NetSession::RemoteClient" name="Net::NetSession::RemoteClient">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,196,228,221"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="28,108,67,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="64,144,84,170,106,194,102,197,80,174,60,147"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="91,108,142,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,147,119,195,114,195,114,147"/>
+<area shape="rect" id="Node000004" href="$structNet_1_1InputState.html" title=" " alt="" coords="166,108,286,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="216,148,194,174,174,188,152,198,150,194,171,183,191,170,212,144"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="90,5,165,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="144,41,179,82,209,106,206,110,175,86,140,44"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="189,5,263,31"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="229,45,229,108,223,108,223,45"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="287,5,346,31"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="311,45,301,66,287,86,270,100,253,110,250,106,267,95,283,82,296,63,306,43"/>
+</map>

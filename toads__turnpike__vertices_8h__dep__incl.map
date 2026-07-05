@@ -1,0 +1,17 @@
+<map id="include/assets/models/tracks/toads_turnpike/toads_turnpike_vertices.h" name="include/assets/models/tracks/toads_turnpike/toads_turnpike_vertices.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="192,5,385,60"/>
+<area shape="rect" id="Node000002" href="$all__course__model_8h.html" title=" " alt="" coords="109,108,252,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="249,71,204,110,201,106,246,67"/>
+<area shape="rect" id="Node000003" href="$ToadsTurnpike_8h.html" title=" " alt="" coords="277,115,517,141"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="331,67,385,113,381,117,328,71"/>
+<area shape="rect" id="Node000004" href="$AllTracks_8h.html" title=" " alt="" coords="82,196,245,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="351,147,198,199,196,193,349,142"/>
+<area shape="rect" id="Node000007" href="$ToadsTurnpike_8cpp.html" title=" " alt="" coords="269,196,524,221"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="399,154,399,196,394,196,394,154"/>
+<area shape="rect" id="Node000008" href="$PortMenu_8cpp.html" title=" " alt="" coords="548,196,728,221"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="446,142,604,193,602,199,444,147"/>
+<area shape="rect" id="Node000005" href="$RegisterTracks_8cpp.html" title=" " alt="" coords="5,269,153,309"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="143,233,101,271,98,267,139,229"/>
+<area shape="rect" id="Node000006" href="$Game_8cpp.html" title=" " alt="" coords="178,277,319,302"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="188,229,238,274,234,278,184,233"/>
+</map>

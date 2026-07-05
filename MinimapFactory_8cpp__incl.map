@@ -1,0 +1,22 @@
+<map id="src/port/resource/importers/MinimapFactory.cpp" name="src/port/resource/importers/MinimapFactory.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="639,5,837,45"/>
+<area shape="rect" id="Node000002" href="$MinimapFactory_8h.html" title=" " alt="" coords="397,101,533,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="679,48,515,99,513,94,677,43"/>
+<area shape="rect" id="Node000006" href="$Minimap_8h.html" title=" " alt="" coords="589,93,730,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="723,47,688,85,684,81,719,44"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="755,101,879,126"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="757,44,798,88,795,92,753,47"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="903,101,1005,126"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="786,43,914,93,912,98,784,48"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="493,189,679,214"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,124,560,178,557,183,479,128"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,181,225,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="419,129,206,181,205,175,417,123"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="249,181,469,221"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="452,128,395,174,392,170,449,124"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="645,135,607,179,603,176,641,132"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="703,189,765,214"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="678,132,717,176,713,180,674,135"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="790,189,857,214"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="697,131,791,180,788,185,694,136"/>
+</map>

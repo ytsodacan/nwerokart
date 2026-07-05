@@ -1,0 +1,9 @@
+<map id="Net::RejectMsg" name="Net::RejectMsg">
+<area shape="rect" id="Node000001" title=" " alt="" coords="65,181,187,207"/>
+<area shape="rect" id="Node000002" href="$structNet_1_1MsgHeader.html" title=" " alt="" coords="5,93,132,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="82,130,98,156,117,179,112,182,93,159,78,132"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="29,5,108,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,45,71,93,66,93,66,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="157,93,207,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="169,132,136,182,132,179,165,129"/>
+</map>

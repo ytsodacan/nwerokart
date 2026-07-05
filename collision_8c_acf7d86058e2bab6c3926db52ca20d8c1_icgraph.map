@@ -1,0 +1,7 @@
+<map id="adjust_pos_orthogonally" name="adjust_pos_orthogonally">
+<area shape="rect" id="Node000001" title=" " alt="" coords="208,35,389,60"/>
+<area shape="rect" id="Node000002" href="$classAFallingRock.html#a78da7ee050ed40f6c83c0a334f7d901f" title="Updates the falling rock actor. Actor used in Choco Mountain." alt="" coords="13,5,153,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,36,153,30,153,25,195,31"/>
+<area shape="rect" id="Node000003" href="$falling__rock_2update_8inc_8c.html#a7476a0a7924f3878d39fb7b83f229779" title="Updates the falling rock actor. Actor used in Choco Mountain." alt="" coords="5,55,160,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="194,64,161,68,160,63,194,58"/>
+</map>

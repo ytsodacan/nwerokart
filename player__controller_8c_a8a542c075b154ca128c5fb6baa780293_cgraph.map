@@ -1,0 +1,7 @@
+<map id="update_player_kart_hop" name="update_player_kart_hop">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,184,31"/>
+<area shape="rect" id="Node000002" href="$math__util_8c.html#a151b63b8adf9af7e4054b3b84bd226dc" title=" " alt="" coords="232,5,328,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="184,15,218,15,218,21,184,21"/>
+<area shape="rect" id="Node000003" href="$math__util_8c.html#a062850863585005ad1d0a75d9ff70693" title=" " alt="" coords="376,5,479,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="328,15,362,15,362,21,328,21"/>
+</map>

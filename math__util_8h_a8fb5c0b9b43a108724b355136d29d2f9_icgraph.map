@@ -1,0 +1,28 @@
+<map id="fabs" name="fabs">
+<area shape="rect" id="Node000001" title=" " alt="" coords="937,104,988,129"/>
+<area shape="rect" id="Node000002" href="$classSkyCloud.html#a7deecbdc3ec7ae48d99f50f1d39c125d" title=" " alt="" coords="731,5,855,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="942,94,918,68,888,44,855,31,857,26,891,40,922,64,946,91"/>
+<area shape="rect" id="Node000003" href="$classSkySnow.html#ab40dc79e792d9d914c3a3dd5428f0349" title=" " alt="" coords="733,55,854,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="923,105,889,94,848,83,849,78,890,89,925,100"/>
+<area shape="rect" id="Node000004" href="$freecam_8cpp.html#a307860332ed4cd3e4e1d65e679ef471d" title=" " alt="" coords="697,104,889,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="923,119,889,119,889,114,923,114"/>
+<area shape="rect" id="Node000008" href="$math__util_8c.html#a259326105d75cb13bc53e99a4519b53f" title=" " alt="" coords="732,153,855,179"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="925,132,890,143,845,156,844,151,889,138,923,127"/>
+<area shape="rect" id="Node000009" href="$EditorMath_8cpp.html#a82e86dde49d8ab0f5459934034270713" title=" " alt="" coords="705,203,881,228"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="946,142,921,169,891,192,862,205,860,200,888,188,918,165,942,139"/>
+<area shape="rect" id="Node000005" href="$freecam_8cpp.html#a66970e145d033feb13d6c3a660b72546" title=" " alt="" coords="503,104,613,129"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="684,119,614,119,614,114,684,114"/>
+<area shape="rect" id="Node000006" href="$freecam_8cpp.html#ac900b57837488f4606719d9b0a594621" title=" " alt="" coords="289,81,365,107"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="489,113,365,100,366,95,490,107"/>
+<area shape="rect" id="Node000007" href="$classFreeCamera.html#ae39719dc886452a2f1b735a6e8fa4bae" title=" " alt="" coords="259,131,395,156"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="489,127,396,138,395,133,489,122"/>
+<area shape="rect" id="Node000010" href="$classTrackEditor_1_1ObjectPicker.html#afe34dcaf26feea939c7bbbc73345f73d" title=" " alt="" coords="467,174,649,214"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="691,209,649,205,650,200,691,203"/>
+<area shape="rect" id="Node000013" href="$classTrackEditor_1_1ObjectPicker.html#a1e0d218040deef6b7ec0412c33a03b54" title=" " alt="" coords="467,238,649,278"/>
+<area shape="poly" id="edge12_Node000009_Node000013" title=" " alt="" coords="710,233,650,244,649,239,709,228"/>
+<area shape="rect" id="Node000011" href="$classTrackEditor_1_1ObjectPicker.html#a8c8f0761caa475a71881a852d3a4beb2" title=" " alt="" coords="236,198,419,238"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="453,208,419,211,419,206,453,202"/>
+<area shape="rect" id="Node000012" href="$classTrackEditor_1_1ObjectPicker.html#ae50fde270612425fe6e2d6d10456e63d" title=" " alt="" coords="5,198,188,238"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="223,221,188,221,188,215,223,215"/>
+<area shape="poly" id="edge13_Node000013_Node000011" title=" " alt="" coords="453,242,418,236,419,231,454,237"/>
+</map>

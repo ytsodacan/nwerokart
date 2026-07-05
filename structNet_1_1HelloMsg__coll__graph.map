@@ -1,0 +1,11 @@
+<map id="Net::HelloMsg" name="Net::HelloMsg">
+<area shape="rect" id="Node000001" title=" " alt="" coords="137,181,251,207"/>
+<area shape="rect" id="Node000002" href="$structNet_1_1MsgHeader.html" title=" " alt="" coords="5,93,132,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,125,141,155,177,179,174,183,138,160,94,129"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="29,5,108,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,45,71,93,66,93,66,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="157,93,231,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="197,133,197,181,191,181,191,133"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="305,93,355,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="322,133,302,159,278,174,252,184,251,179,276,169,299,155,318,130"/>
+</map>

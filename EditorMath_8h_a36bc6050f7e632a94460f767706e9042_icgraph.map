@@ -1,0 +1,11 @@
+<map id="Editor_AddMatrix" name="Editor_AddMatrix">
+<area shape="rect" id="Node000001" title=" " alt="" coords="428,77,563,102"/>
+<area shape="rect" id="Node000002" href="$classTrackEditor_1_1ObjectPicker.html#a70abb28b0cc2f26b475cee54b8addb72" title=" " alt="" coords="197,5,380,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="440,75,353,48,355,43,441,70"/>
+<area shape="rect" id="Node000003" href="$classTrackEditor_1_1LightObject.html#a61b3a5910a00ffe5dfb5aff55566c638" title=" " alt="" coords="201,69,377,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="414,92,377,92,377,87,414,87"/>
+<area shape="rect" id="Node000004" href="$classTrackEditor_1_1Gizmo.html#a5f5509a37443442a1f9d6d80495b898b" title=" " alt="" coords="217,133,361,173"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="441,109,355,136,353,131,440,104"/>
+<area shape="rect" id="Node000005" href="$classTrackEditor_1_1Gizmo.html#a385576fd8da261ebe1d245905d825997" title=" " alt="" coords="5,133,149,173"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="202,156,150,156,150,151,202,151"/>
+</map>

@@ -1,0 +1,25 @@
+var render__courses_8c =
+[
+    [ "draw_transparent_geography", "render__courses_8c.html#a04b70c3630b91fe34b2675f04d544364", null ],
+    [ "func_80290C20", "render__courses_8c.html#a9a9119b96bf015cf8b5a168485f67e3f", null ],
+    [ "func_80291198", "render__courses_8c.html#aee88ee3e4f8a82e2e6135f10370570a4", null ],
+    [ "func_80295BF8", "render__courses_8c.html#a37ee937c815f25140e16f2ae6c528a73", null ],
+    [ "func_80295C6C", "render__courses_8c.html#ab02cdf6684f984a12e7388fe973bc89a", null ],
+    [ "func_80295D50", "render__courses_8c.html#acfcbf9a4823e15ce73fef8bb3389b314", null ],
+    [ "func_80295D6C", "render__courses_8c.html#a95e4ea5c2df6f334ba984f7383834ec7", null ],
+    [ "parse_track_displaylists", "render__courses_8c.html#ac97a07076b3e301db5da93c0fe8f0500", null ],
+    [ "render_track", "render__courses_8c.html#a7d24f6742649a89302bce107d4460779", null ],
+    [ "render_track_sections", "render__courses_8c.html#aa2d036c2083162fb6a9fe86ebd20386b", null ],
+    [ "currentScreenSection", "render__courses_8c.html#ad7284ffc2e41a12ca87537ef21156453", null ],
+    [ "D_802B87B8", "render__courses_8c.html#a37e4f5227c5bb3b68c0ff7a4e7b90207", null ],
+    [ "D_802B87BC", "render__courses_8c.html#a5ef23ec890f25eb018a19f03e7e931a3", null ],
+    [ "D_802B87C0", "render__courses_8c.html#ae3ff5a3807c9059521b167eece3a806f", null ],
+    [ "D_802B87C4", "render__courses_8c.html#a2af444c495e48a500530fea69e682168", null ],
+    [ "D_802B87C8", "render__courses_8c.html#afbb4dd9882a0ef44bce101c478e79de4", null ],
+    [ "D_802B87CC", "render__courses_8c.html#a96f37bd6129294cc3ff7d1998f3b8686", null ],
+    [ "D_802B87D0", "render__courses_8c.html#a9fce3bcb94935f64d7c2563668a6aafb", null ],
+    [ "D_802B87D4", "render__courses_8c.html#a2bed696fe9427ae7c9853be4f1bc6f08", null ],
+    [ "gFogMax", "render__courses_8c.html#a9fcb662d455614a0c134f39675195f5b", null ],
+    [ "gFogMin", "render__courses_8c.html#af561c77a8b480cf7c662517a212b1ed1", null ],
+    [ "isFlycam", "render__courses_8c.html#aa9da1128ba108a869ae75449671e29f7", null ]
+];

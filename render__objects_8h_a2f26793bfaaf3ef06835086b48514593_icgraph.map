@@ -1,0 +1,7 @@
+<map id="draw_2d_texture_at" name="draw_2d_texture_at">
+<area shape="rect" id="Node000001" title=" " alt="" coords="176,31,327,56"/>
+<area shape="rect" id="Node000002" href="$render__objects_8c.html#aaac6f874f1336d214244acfa64e3ac66" title=" " alt="" coords="5,5,128,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="162,34,128,29,128,24,163,28"/>
+<area shape="rect" id="Node000003" href="$render__objects_8c.html#af4a47171ed4ccb8d47e975ee34655494" title=" " alt="" coords="6,55,127,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="163,58,128,62,127,57,162,52"/>
+</map>

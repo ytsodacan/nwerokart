@@ -1,0 +1,5 @@
+<map id="spawn_falling_rocks" name="spawn_falling_rocks">
+<area shape="rect" id="Node000001" title=" " alt="" coords="208,5,363,31"/>
+<area shape="rect" id="Node000002" href="$classTestTrack.html#a2837e5e48c268d15ca1590ced6aa7a00" title=" " alt="" coords="5,5,160,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,21,161,21,161,15,194,15"/>
+</map>

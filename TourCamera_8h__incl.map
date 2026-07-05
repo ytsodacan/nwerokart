@@ -1,0 +1,19 @@
+<map id="src/engine/cameras/TourCamera.h" name="src/engine/cameras/TourCamera.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="34,5,183,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="103,313,210,339"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,48,55,75,27,111,16,130,10,150,9,171,14,191,36,227,65,258,96,284,125,304,122,308,93,288,61,262,31,230,9,193,3,171,5,149,11,128,22,108,52,72,82,44"/>
+<area shape="rect" id="Node000003" href="$GameCamera_8h.html" title=" " alt="" coords="97,93,221,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="123,44,147,80,142,83,119,47"/>
+<area shape="rect" id="Node000004" href="$CoreMath_8h.html" title=" " alt="" coords="23,167,120,192"/>
+<area shape="poly" id="edge10_Node000001_Node000004" title=" " alt="" coords="104,46,89,94,77,153,72,152,84,93,99,45"/>
+<area shape="rect" id="Node000005" href="$camera_8h.html" title=" " alt="" coords="225,167,307,192"/>
+<area shape="poly" id="edge11_Node000001_Node000005" title=" " alt="" coords="165,43,202,63,236,92,254,122,264,152,259,154,249,124,232,95,199,68,162,48"/>
+<area shape="poly" id="edge3_Node000003_Node000002" title=" " alt="" coords="162,119,160,299,154,299,157,119"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="147,121,98,160,95,156,144,117"/>
+<area shape="poly" id="edge6_Node000003_Node000005" title=" " alt="" coords="178,116,239,157,236,161,175,121"/>
+<area shape="poly" id="edge5_Node000004_Node000002" title=" " alt="" coords="81,191,145,300,141,303,76,194"/>
+<area shape="poly" id="edge7_Node000005_Node000002" title=" " alt="" coords="294,190,320,204,344,222,357,243,358,255,352,267,326,292,294,310,259,320,225,326,224,321,258,315,292,305,323,288,348,264,352,254,352,245,340,226,317,208,292,195"/>
+<area shape="rect" id="Node000006" href="$common__structs_8h.html" title=" " alt="" coords="195,240,337,265"/>
+<area shape="poly" id="edge8_Node000005_Node000006" title=" " alt="" coords="269,192,269,226,263,226,263,192"/>
+<area shape="poly" id="edge9_Node000006_Node000002" title=" " alt="" coords="250,268,188,308,185,303,247,263"/>
+</map>

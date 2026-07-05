@@ -1,0 +1,15 @@
+<map id="include/assets/models/tracks/koopa_troopa_beach/koopa_troopa_beach_vertices.h" name="include/assets/models/tracks/koopa_troopa_beach/koopa_troopa_beach_vertices.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="76,5,283,75"/>
+<area shape="rect" id="Node000002" href="$all__course__model_8h.html" title=" " alt="" coords="5,123,148,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,86,98,124,95,120,133,83"/>
+<area shape="rect" id="Node000003" href="$KoopaTroopaBeach_8h.html" title=" " alt="" coords="172,123,392,163"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="226,83,264,120,260,124,222,86"/>
+<area shape="rect" id="Node000004" href="$AllTracks_8h.html" title=" " alt="" coords="93,218,255,243"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="249,173,191,220,187,215,246,169"/>
+<area shape="rect" id="Node000007" href="$KoopaTroopaBeach_8cpp.html" title=" " alt="" coords="280,211,500,251"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="318,169,368,208,364,213,315,173"/>
+<area shape="rect" id="Node000005" href="$RegisterTracks_8cpp.html" title=" " alt="" coords="16,299,164,339"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="155,255,111,300,107,296,151,251"/>
+<area shape="rect" id="Node000006" href="$Game_8cpp.html" title=" " alt="" coords="189,306,330,331"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="197,251,249,304,246,307,193,255"/>
+</map>

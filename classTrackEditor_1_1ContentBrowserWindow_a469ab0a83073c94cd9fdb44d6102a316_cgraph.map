@@ -1,0 +1,33 @@
+<map id="TrackEditor::ContentBrowserWindow::DrawElement" name="TrackEditor::ContentBrowserWindow::DrawElement">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,132,212,172"/>
+<area shape="rect" id="Node000002" href="$classTrackEditor_1_1ContentBrowserWindow.html#a0baa76d90aea78fc1bb85c201c376478" title=" " alt="" coords="260,100,467,140"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,137,246,132,247,138,212,142"/>
+<area shape="rect" id="Node000006" href="$classTrackEditor_1_1ContentBrowserWindow.html#aee0daffd1c8f9d32731c04d95f672053" title=" " alt="" coords="515,36,721,76"/>
+<area shape="poly" id="edge17_Node000001_Node000006" title=" " alt="" coords="123,130,146,104,178,73,216,44,259,22,296,11,334,5,411,5,484,15,546,30,545,35,483,20,411,10,334,10,297,16,261,27,219,48,182,77,150,107,127,134"/>
+<area shape="rect" id="Node000009" href="$classTrackEditor_1_1ContentBrowserWindow.html#a2810b82eb55e6f3cca339e7bad4c8efe" title=" " alt="" coords="260,164,467,204"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="212,163,247,167,246,172,212,168"/>
+<area shape="rect" id="Node000012" href="$classTrackEditor_1_1ContentBrowserWindow.html#afb0e734a50b6f9dae45bf463d851d77f" title=" " alt="" coords="260,36,467,76"/>
+<area shape="poly" id="edge13_Node000001_Node000012" title=" " alt="" coords="153,130,259,86,281,78,282,83,261,91,155,134"/>
+<area shape="rect" id="Node000013" href="$classTrackEditor_1_1ContentBrowserWindow.html#ac6b5a2f96135020d6851bda30ad2ed38" title=" " alt="" coords="260,228,467,268"/>
+<area shape="poly" id="edge15_Node000001_Node000013" title=" " alt="" coords="155,170,261,214,282,221,281,226,259,219,153,175"/>
+<area shape="rect" id="Node000014" href="$classTrackEditor_1_1ContentBrowserWindow.html#a43120cff71cadebe30cc823692fa8115" title=" " alt="" coords="260,292,467,332"/>
+<area shape="poly" id="edge16_Node000001_Node000014" title=" " alt="" coords="130,170,186,224,222,253,261,278,275,285,272,289,259,283,219,257,182,228,127,174"/>
+<area shape="rect" id="Node000003" href="$EditorMath_8cpp.html#a707962eeb418c5eae5161502b49da8e4" title=" " alt="" coords="516,165,720,190"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="453,138,548,159,547,164,452,143"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="443,98,524,77,525,82,444,103"/>
+<area shape="rect" id="Node000007" href="$classTrackEditor_1_1ContentBrowserWindow.html#a8157b0f2958b93cf58dd3e9d76fd6856" title=" " alt="" coords="515,100,721,140"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="467,118,501,118,501,123,467,123"/>
+<area shape="rect" id="Node000004" href="$cosf_8c.html#a7b126b2344591e649c21c9ab0b8adb40" title=" " alt="" coords="801,210,850,236"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="677,188,788,212,787,217,676,193"/>
+<area shape="rect" id="Node000005" href="$sinf_8c.html#a8a7dc2a88e109f4e15b661247665709a" title=" " alt="" coords="802,161,849,186"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="720,173,788,172,788,177,721,178"/>
+<area shape="rect" id="Node000008" href="$classATrain.html#aa39976112e962ff1536c33236e16cc20" title=" " alt="" coords="769,108,881,133"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="722,118,756,118,756,123,722,123"/>
+<area shape="poly" id="edge10_Node000009_Node000003" title=" " alt="" coords="467,179,502,178,502,183,467,184"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="444,162,465,150,480,135,488,119,497,102,513,86,522,80,525,85,516,90,501,106,493,121,484,138,468,154,447,166"/>
+<area shape="rect" id="Node000010" href="$classWorld.html#a3aae64ec4571ac8870d606dc1b0bd9be" title=" " alt="" coords="519,214,717,240"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="467,199,528,209,528,214,466,204"/>
+<area shape="rect" id="Node000011" href="$Game_8cpp.html#ae2fa844b3cb1021ecbc357f8ed2ad8cc" title=" " alt="" coords="577,264,659,289"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="440,202,468,214,492,232,516,250,564,265,563,271,513,255,489,237,465,218,438,207"/>
+<area shape="poly" id="edge14_Node000012_Node000006" title=" " alt="" coords="467,54,501,54,501,59,467,59"/>
+</map>

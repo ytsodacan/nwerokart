@@ -1,0 +1,25 @@
+var render__courses_8h =
+[
+    [ "draw_transparent_geography", "render__courses_8h.html#ac30f64ee647c72e7ff56c0a5f64a0e85", null ],
+    [ "func_80290C20", "render__courses_8h.html#a7d9ce14ed111e45ee1f45d0554dfc41d", null ],
+    [ "func_80291198", "render__courses_8h.html#aee88ee3e4f8a82e2e6135f10370570a4", null ],
+    [ "func_80295BF8", "render__courses_8h.html#a353d6b1bc469711c153fe070abd52bfe", null ],
+    [ "func_80295C6C", "render__courses_8h.html#ab02cdf6684f984a12e7388fe973bc89a", null ],
+    [ "func_80295D50", "render__courses_8h.html#a9715b5098a08f8f749dfa4cfaea65378", null ],
+    [ "func_80295D6C", "render__courses_8h.html#a95e4ea5c2df6f334ba984f7383834ec7", null ],
+    [ "func_80295D88", "render__courses_8h.html#afa7a12f363eeadd8ea6926eaf62657ef", null ],
+    [ "parse_track_displaylists", "render__courses_8h.html#ac97a07076b3e301db5da93c0fe8f0500", null ],
+    [ "render_track", "render__courses_8h.html#a765a1a4bf4a8b50316e67b7d3413db05", null ],
+    [ "render_track_sections", "render__courses_8h.html#aad8f34ca276610b03d066879775253cb", null ],
+    [ "D_800DC610", "render__courses_8h.html#a8005297cf5ecea6c6824222b894c8e8f", null ],
+    [ "D_8015F59C", "render__courses_8h.html#a5dc8568a195491aeddd6112247e000b2", null ],
+    [ "D_802B87BC", "render__courses_8h.html#a5ef23ec890f25eb018a19f03e7e931a3", null ],
+    [ "D_802B87C4", "render__courses_8h.html#a2af444c495e48a500530fea69e682168", null ],
+    [ "D_802B87C8", "render__courses_8h.html#afbb4dd9882a0ef44bce101c478e79de4", null ],
+    [ "D_802B87CC", "render__courses_8h.html#a96f37bd6129294cc3ff7d1998f3b8686", null ],
+    [ "D_802B87D0", "render__courses_8h.html#a9fce3bcb94935f64d7c2563668a6aafb", null ],
+    [ "D_802B87D4", "render__courses_8h.html#a2bed696fe9427ae7c9853be4f1bc6f08", null ],
+    [ "gFogMax", "render__courses_8h.html#a9fcb662d455614a0c134f39675195f5b", null ],
+    [ "gFogMin", "render__courses_8h.html#af561c77a8b480cf7c662517a212b1ed1", null ],
+    [ "gNumCollisionTriangles", "render__courses_8h.html#a31959c0ae2036221d88612dd175a01f6", null ]
+];

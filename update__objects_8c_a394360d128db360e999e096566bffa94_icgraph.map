@@ -1,0 +1,27 @@
+<map id="func_80073B78" name="func_80073B78">
+<area shape="rect" id="Node000001" title=" " alt="" coords="941,153,1064,179"/>
+<area shape="rect" id="Node000002" href="$update__objects_8c.html#ac31769d6520eb620744212bb98a35c67" title=" " alt="" coords="729,104,851,129"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="933,153,845,132,846,127,935,148"/>
+<area shape="rect" id="Node000010" href="$classOSnowman.html#ab008c50a3a4d6607147b0a5d07d65693" title=" " alt="" coords="687,177,893,203"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="928,177,894,181,893,176,928,172"/>
+<area shape="rect" id="Node000003" href="$classOBoos.html#a5483474ae266b13f26f36898ac4e6b35" title=" " alt="" coords="451,5,623,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="754,100,700,71,638,45,600,33,602,28,640,39,703,67,756,95"/>
+<area shape="rect" id="Node000005" href="$update__objects_8c.html#a73baf566f784645307e6515a2528537d" title=" " alt="" coords="475,55,600,80"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="715,105,600,82,601,77,716,100"/>
+<area shape="rect" id="Node000007" href="$classOTrashBin.html#a3bfba89c86991d823fdbeb0cb0e65097" title=" " alt="" coords="440,104,635,129"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="715,119,635,119,635,114,715,114"/>
+<area shape="rect" id="Node000009" href="$classOBat.html#ae20ad02992d817ca3c975e94cc6f1b26" title=" " alt="" coords="493,153,582,179"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="715,134,583,160,582,155,714,129"/>
+<area shape="rect" id="Node000004" href="$classOBoos.html#a12c6c9d602befe0bdc7383aa3f3530ed" title=" " alt="" coords="237,5,335,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="437,21,336,21,336,15,437,15"/>
+<area shape="rect" id="Node000006" href="$update__objects_8c.html#a0f87dba5711ff3586d5fc515bd6df6af" title=" " alt="" coords="225,55,347,80"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="461,70,348,70,348,65,461,65"/>
+<area shape="rect" id="Node000008" href="$classOTrashBin.html#af6d73933526741c82beebbed24515259" title=" " alt="" coords="225,104,347,129"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="426,119,348,119,348,114,426,114"/>
+<area shape="rect" id="Node000011" href="$classOSnowman.html#a1d589cb7de864ebc8942ea1bc10d155a" title=" " alt="" coords="436,203,639,228"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="673,204,639,208,638,203,673,199"/>
+<area shape="rect" id="Node000012" href="$classOSnowman.html#ad8f7afbec39a4816e2c2b4237d15b294" title=" " alt="" coords="184,203,388,228"/>
+<area shape="poly" id="edge11_Node000011_Node000012" title=" " alt="" coords="423,218,388,218,388,213,423,213"/>
+<area shape="rect" id="Node000013" href="$classOSnowman.html#ae84de267ff70c7e2ac5748b9bd738ada" title=" " alt="" coords="5,203,136,228"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="170,218,137,218,137,213,170,213"/>
+</map>

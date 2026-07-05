@@ -1,0 +1,14 @@
+<map id="MkAnimation" name="MkAnimation">
+<area shape="rect" id="Node000001" title="struct for an animation" alt="" coords="11,211,120,236"/>
+<area shape="rect" id="Node000002" href="$structMenuTexture.html" title="struct for a texture use in menu mainly" alt="" coords="128,123,235,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,158,83,213,80,208,153,154"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,51,31"/>
+<area shape="poly" id="edge6_Node000001_Node000003" title=" " alt="" coords="26,45,21,93,22,120,27,147,41,182,58,209,54,212,36,184,21,149,17,121,16,93,20,44"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="38,42,51,71,72,97,99,113,129,123,127,128,97,118,69,101,47,74,33,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="91,5,149,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="115,44,112,71,118,97,130,111,146,120,143,125,127,115,114,100,106,72,109,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="210,5,257,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="228,45,206,100,192,124,187,121,202,97,223,43"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="287,5,332,31"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="306,45,295,74,275,101,255,115,233,125,231,120,252,110,271,97,290,71,301,43"/>
+</map>

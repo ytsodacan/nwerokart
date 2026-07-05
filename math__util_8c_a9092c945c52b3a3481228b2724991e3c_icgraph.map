@@ -1,0 +1,46 @@
+<map id="vec3s_set" name="vec3s_set">
+<area shape="rect" id="Node000001" title=" " alt="" coords="925,232,1012,257"/>
+<area shape="rect" id="Node000002" href="$classABoat.html#a72f9505bb203b7da30ee448f061bbe49" title=" " alt="" coords="727,5,835,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="961,219,952,180,935,132,911,84,894,63,876,44,856,32,834,25,836,20,858,27,879,40,899,59,915,82,940,130,957,178,966,218"/>
+<area shape="rect" id="Node000003" href="$classATrain.html#a924e9fb51739e1fba6b0eff6635611bc" title=" " alt="" coords="727,55,835,80"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="957,220,928,156,905,122,876,93,856,82,834,75,836,70,858,78,879,89,909,118,932,153,962,217"/>
+<area shape="rect" id="Node000004" href="$classKalimariDesert.html#aa3f0f4155f0d9a6ecfb4ca824603b81f" title=" " alt="" coords="684,104,877,129"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="950,222,919,181,899,160,876,143,852,132,854,127,879,138,902,156,923,177,955,218"/>
+<area shape="rect" id="Node000005" href="$falling__rock_2update_8inc_8c.html#a9a8171deacccacba26f4fda3f2aec227" title=" " alt="" coords="719,153,842,179"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="937,226,876,192,842,181,843,176,878,188,940,222"/>
+<area shape="rect" id="Node000007" href="$actors_8c.html#a5998eaf5bee060a664f203f5d0a8ae95" title=" " alt="" coords="708,253,853,293"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="912,256,854,265,853,259,911,250"/>
+<area shape="rect" id="Node000012" href="$classAFallingRock.html#a61b80c1c12dbf2506ecf5089ee5cb757" title=" " alt="" coords="705,317,856,343"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="942,268,913,288,878,307,843,320,841,315,876,302,910,284,939,264"/>
+<area shape="rect" id="Node000014" href="$actors_8c.html#a89e1bc069861528b3d9bac9571a83cd5" title=" " alt="" coords="703,367,858,392"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="956,271,924,315,903,337,879,356,852,369,850,364,876,352,899,333,920,311,951,268"/>
+<area shape="rect" id="Node000016" href="$falling__rock_2update_8inc_8c.html#ad18c14dd8d45f1315a6ed69f8ba9cdd3" title=" " alt="" coords="703,416,858,441"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="962,272,951,302,933,339,909,375,879,405,856,418,854,413,876,401,905,371,928,336,946,300,957,270"/>
+<area shape="rect" id="Node000018" href="$actors_8c.html#a64785058c93cd477d4f1f3fd1eee38fe" title=" " alt="" coords="709,203,853,228"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="911,238,853,229,853,224,912,233"/>
+<area shape="rect" id="Node000019" href="$actors_8c.html#af6d278bc785acfd772b70dd01b2a2dc0" title=" " alt="" coords="697,489,864,515"/>
+<area shape="poly" id="edge19_Node000001_Node000019" title=" " alt="" coords="965,271,954,310,937,359,913,409,879,455,852,476,821,492,819,487,849,472,875,451,908,406,932,357,949,309,959,270"/>
+<area shape="rect" id="Node000006" href="$falling__rock_2update_8inc_8c.html#a7476a0a7924f3878d39fb7b83f229779" title="Updates the falling rock actor. Actor used in Choco Mountain." alt="" coords="449,138,604,178"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="705,166,604,163,604,158,705,161"/>
+<area shape="rect" id="Node000008" href="$classKoopaTroopaBeach.html#a9080e865d29d960d60c9d86d9370ea1a" title=" " alt="" coords="417,203,636,228"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="694,256,583,231,584,225,695,251"/>
+<area shape="rect" id="Node000009" href="$classOHotAirBalloon.html#a401de1da0d55d973c05514589e2b5298" title=" " alt="" coords="451,253,602,293"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="694,275,602,275,602,270,694,270"/>
+<area shape="rect" id="Node000010" href="$classOHotAirBalloon.html#a40bc8d453d3d79b9a7accdc5b4e1420d" title=" " alt="" coords="211,253,369,293"/>
+<area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="438,275,370,275,370,270,438,270"/>
+<area shape="rect" id="Node000011" href="$classOHotAirBalloon.html#a59cdcf707eed92e7a9f72626d093fc23" title=" " alt="" coords="5,260,163,285"/>
+<area shape="poly" id="edge10_Node000010_Node000011" title=" " alt="" coords="197,275,163,275,163,270,197,270"/>
+<area shape="rect" id="Node000013" href="$classAFallingRock.html#a78da7ee050ed40f6c83c0a334f7d901f" title="Updates the falling rock actor. Actor used in Choco Mountain." alt="" coords="457,317,597,343"/>
+<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="692,333,597,333,597,327,692,327"/>
+<area shape="rect" id="Node000015" href="$actors_8c.html#a0d9197f8df1df3e8834fbaf37e9e2115" title=" " alt="" coords="464,367,589,392"/>
+<area shape="poly" id="edge14_Node000014_Node000015" title=" " alt="" coords="690,382,590,382,590,377,690,377"/>
+<area shape="rect" id="Node000017" href="$classTestTrack.html#a2837e5e48c268d15ca1590ced6aa7a00" title=" " alt="" coords="449,416,604,441"/>
+<area shape="poly" id="edge16_Node000016_Node000017" title=" " alt="" coords="690,431,604,431,604,426,690,426"/>
+<area shape="poly" id="edge18_Node000018_Node000008" title=" " alt="" coords="695,218,636,218,636,213,695,213"/>
+<area shape="rect" id="Node000020" href="$classMarioRaceway.html#add93404089a3200bf3345cccbaaaff2d" title=" " alt="" coords="431,465,622,491"/>
+<area shape="poly" id="edge20_Node000019_Node000020" title=" " alt="" coords="683,495,622,490,623,484,684,490"/>
+<area shape="rect" id="Node000021" href="$classPodiumCeremony.html#a65cdc7a796ddbace20d38e2a6af2335c" title=" " alt="" coords="421,515,632,540"/>
+<area shape="poly" id="edge21_Node000019_Node000021" title=" " alt="" coords="684,514,632,519,632,514,683,509"/>
+<area shape="rect" id="Node000022" href="$classRoyalRaceway.html#a417f6ebceb092a23aebc5448e8f1241e" title=" " alt="" coords="431,564,622,589"/>
+<area shape="poly" id="edge22_Node000019_Node000022" title=" " alt="" coords="735,522,637,555,592,567,590,561,635,550,733,517"/>
+</map>

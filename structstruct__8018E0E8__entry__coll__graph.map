@@ -1,0 +1,14 @@
+<map id="struct_8018E0E8_entry" name="struct_8018E0E8_entry">
+<area shape="rect" id="Node000001" title=" " alt="" coords="191,215,361,240"/>
+<area shape="rect" id="Node000002" href="$structMenuTexture.html" title="struct for a texture use in menu mainly" alt="" coords="164,125,271,150"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="221,163,229,189,240,202,254,212,251,217,237,206,224,192,215,165"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,51,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="38,43,51,71,72,97,93,110,117,119,164,130,163,135,115,125,91,115,69,101,46,74,33,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="75,5,133,31"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="109,44,116,71,131,97,150,112,172,122,170,127,147,116,127,100,111,73,104,45"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="194,5,241,31"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="220,45,220,124,215,124,215,45"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="291,5,336,31"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="323,44,328,74,332,112,330,153,318,192,309,206,297,217,293,213,305,202,314,190,324,152,326,112,323,75,317,45"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="302,44,266,100,236,126,233,122,262,97,298,41"/>
+</map>

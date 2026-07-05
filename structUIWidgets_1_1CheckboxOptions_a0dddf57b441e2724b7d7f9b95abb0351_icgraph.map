@@ -1,0 +1,14 @@
+<map id="UIWidgets::CheckboxOptions::LabelPosition" name="UIWidgets::CheckboxOptions::LabelPosition">
+<area shape="rect" id="Node000001" title=" " alt="" coords="291,109,501,149"/>
+<area shape="rect" id="Node000002" href="$namespaceUIWidgets.html#a25c7179d940c810f2d679a31f5ad2208" title=" " alt="" coords="19,29,229,55"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="339,106,242,69,198,57,199,52,243,63,341,101"/>
+<area shape="rect" id="Node000003" href="$namespaceUIWidgets.html#af86f641dd74c573751e8523c2203ba7b" title=" " alt="" coords="19,79,229,104"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="276,115,217,107,217,101,277,110"/>
+<area shape="rect" id="Node000004" href="$namespaceUIWidgets.html#a9881402d72623784820aed6bcc843eaa" title=" " alt="" coords="23,152,225,177"/>
+<area shape="poly" id="edge4_Node000001_Node000004" title=" " alt="" coords="277,147,221,155,220,149,277,142"/>
+<area shape="rect" id="Node000005" href="$namespaceUIWidgets.html#a29fd51abf8fac5d2636c278779f88b33" title=" " alt="" coords="5,225,243,251"/>
+<area shape="poly" id="edge6_Node000001_Node000005" title=" " alt="" coords="334,156,158,228,156,223,332,151"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="172,20,170,16,161,12,124,8,95,10,79,15,76,20,84,27,81,31,71,21,76,11,94,5,124,3,163,7,173,12,177,18"/>
+<area shape="poly" id="edge5_Node000004_Node000004" title=" " alt="" coords="172,143,170,138,161,135,124,131,95,133,79,138,76,143,84,150,81,154,71,144,76,134,94,127,124,125,163,129,173,134,177,140"/>
+<area shape="poly" id="edge7_Node000005_Node000005" title=" " alt="" coords="172,216,170,212,161,208,124,204,95,206,79,211,76,216,84,223,81,227,71,217,76,207,94,201,124,199,163,203,173,208,177,214"/>
+</map>

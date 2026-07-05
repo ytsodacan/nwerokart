@@ -1,0 +1,23 @@
+<map id="UIWidgets::CVarSliderFloat" name="UIWidgets::CVarSliderFloat">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,180,203,205"/>
+<area shape="rect" id="Node000002" href="$namespaceUIWidgets.html#ab0e1dc2ac8062d0124cef3260da95506" title=" " alt="" coords="251,180,417,205"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,190,237,190,237,195,203,195"/>
+<area shape="rect" id="Node000003" href="$namespaceUIWidgets.html#aff1b4b5ec89aa4afa79223288c55a91e" title=" " alt="" coords="495,53,635,79"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="348,178,397,138,464,96,500,81,502,85,467,100,400,142,351,182"/>
+<area shape="rect" id="Node000006" href="$ShipUtils_8cpp.html#a31d87083f0db90738310ec533f7e9d17" title=" " alt="" coords="735,104,893,129"/>
+<area shape="poly" id="edge10_Node000002_Node000006" title=" " alt="" coords="381,177,465,158,599,137,721,123,722,128,600,142,466,163,382,183"/>
+<area shape="rect" id="Node000007" href="$namespaceUIWidgets.html#a01b8f77a826ec1dcc1ee8c9a21c219d6" title=" " alt="" coords="723,153,905,179"/>
+<area shape="poly" id="edge11_Node000002_Node000007" title=" " alt="" coords="417,185,708,169,709,174,418,191"/>
+<area shape="rect" id="Node000008" href="$namespaceUIWidgets.html#a3493c246b651d9839fecfd680030ef6c" title=" " alt="" coords="479,205,651,231"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="418,199,465,204,464,210,417,204"/>
+<area shape="rect" id="Node000009" href="$namespaceUIWidgets.html#ab3668add920a14f28ddc7b864ad9a998" title=" " alt="" coords="469,255,660,280"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="366,203,466,241,493,249,492,254,464,246,364,208"/>
+<area shape="rect" id="Node000010" href="$namespaceUIWidgets.html#a560e4ab7577da33003569105d9ec736f" title=" " alt="" coords="465,304,664,329"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="350,204,399,246,431,270,467,290,483,297,481,302,464,295,428,275,395,251,346,208"/>
+<area shape="rect" id="Node000004" href="$namespaceUIWidgets.html#a2af1f9ddf2209195e9ad4c2edefdec19" title=" " alt="" coords="715,5,913,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="631,51,733,31,734,36,632,56"/>
+<area shape="rect" id="Node000005" href="$namespaceUIWidgets.html#a7bf63e353090d99c90ff183fff2b582f" title=" " alt="" coords="712,55,916,80"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="635,64,698,64,698,69,635,69"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="629,76,738,99,737,104,628,81"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="588,76,643,108,713,140,736,147,734,152,711,144,641,112,585,81"/>
+</map>

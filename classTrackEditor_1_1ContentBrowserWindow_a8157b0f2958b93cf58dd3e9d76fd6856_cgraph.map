@@ -1,0 +1,5 @@
+<map id="TrackEditor::ContentBrowserWindow::TrainWindow" name="TrackEditor::ContentBrowserWindow::TrainWindow">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,212,45"/>
+<area shape="rect" id="Node000002" href="$classATrain.html#aa39976112e962ff1536c33236e16cc20" title=" " alt="" coords="260,13,372,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="212,23,246,23,246,28,212,28"/>
+</map>

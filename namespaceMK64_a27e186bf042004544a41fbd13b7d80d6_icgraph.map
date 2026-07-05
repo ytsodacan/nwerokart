@@ -1,0 +1,8 @@
+<map id="MK64::loadPngTexture" name="MK64::loadPngTexture">
+<area shape="rect" id="Node000001" title=" " alt="" coords="269,45,436,70"/>
+<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="395,36,384,27,353,23,327,25,314,30,311,36,318,43,314,46,306,36,310,26,326,20,353,18,386,22,399,31"/>
+<area shape="rect" id="Node000002" href="$classMK64_1_1ResourceFactoryBinaryTextureV0.html#a5f8979a83c01fa69ec683689c7b029b0" title=" " alt="" coords="5,5,221,45"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="255,47,221,42,222,37,256,42"/>
+<area shape="rect" id="Node000003" href="$classMK64_1_1ResourceFactoryBinaryTextureV1.html#a5ee42d977ef3c6527a8dee7fcd8077c4" title=" " alt="" coords="5,69,221,109"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="256,73,222,78,221,72,255,68"/>
+</map>
