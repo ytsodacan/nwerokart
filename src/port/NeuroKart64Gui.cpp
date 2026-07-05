@@ -1,5 +1,5 @@
 #include <libultraship.h>
-#include "SpaghettiGui.h"
+#include "NeuroKart64Gui.h"
 #include <ship/window/gui/Gui.h>
 #include <ship/window/Window.h>
 #include "ship/config/Config.h"
@@ -40,7 +40,7 @@ namespace Ship {
 #define TOGGLE_BTN ImGuiKey_F1
 #define TOGGLE_PAD_BTN ImGuiKey_GamepadBack
 
-void SpaghettiGui::DrawMenu() {
+void NeuroKart64Gui::DrawMenu() {
     const std::shared_ptr<Window> wnd = Context::GetInstance()->GetWindow();
     const std::shared_ptr<Config> conf = Context::GetInstance()->GetConfig();
 

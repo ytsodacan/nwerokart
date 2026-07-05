@@ -194,8 +194,8 @@ void AddModMetadata(const ModMetadata& metadata, const std::shared_ptr<Ship::Arc
 
 void AddCoreDependencies() {
     ModMetadata meta;
-    meta.name = "spaghettikart-core";
-    semver::parse(SPAGHETTI_VERSION, meta.version);
+    meta.name = "neurokart-core";
+    semver::parse(NEUROKART64_VERSION, meta.version);
 
     semver::range_set<int, int, int> mk64Ver;
     semver::parse("1.0.0-alpha1", mk64Ver);

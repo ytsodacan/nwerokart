@@ -6337,7 +6337,7 @@ static void draw_version(void) {
     }
 
     set_text_color(TEXT_GREEN);
-    print_text1_right(column, 0xEA, SPAGHETTI_VERSION, 0, 0.5f, 0.5f);
+    print_text1_right(column, 0xEA, NEUROKART64_VERSION, 0, 0.5f, 0.5f);
 }
 
 #ifdef NON_MATCHING

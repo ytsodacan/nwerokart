@@ -8,10 +8,10 @@ class Gui; // <-- forward declare
 //class Window;
 
 namespace Ship {
-    class SpaghettiGui : public Gui {
+    class NeuroKart64Gui : public Gui {
       public:
-        SpaghettiGui() : Gui() {}
-        SpaghettiGui(std::vector<std::shared_ptr<GuiWindow>> guiWindows) : Gui(guiWindows) {}
+        NeuroKart64Gui() : Gui() {}
+        NeuroKart64Gui(std::vector<std::shared_ptr<GuiWindow>> guiWindows) : Gui(guiWindows) {}
 
       protected:
         virtual void DrawMenu() override;

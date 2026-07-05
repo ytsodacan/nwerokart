@@ -80,9 +80,9 @@ execute_process(
     ${LINUXDEPLOY_EXECUTABLE}
     --appimage-extract-and-run
     --appdir=${CPACK_TEMPORARY_DIRECTORY}
-    --executable=$<TARGET_FILE:Spaghettify>
-    $<$<BOOL:$<TARGET_PROPERTY:Spaghettify,APPIMAGE_DESKTOP_FILE>>:--desktop-file=$<TARGET_PROPERTY:Spaghettify,APPIMAGE_DESKTOP_FILE>>
-    $<$<BOOL:$<TARGET_PROPERTY:Spaghettify,APPIMAGE_ICON_FILE>>:--icon-file=$<TARGET_PROPERTY:Spaghettify,APPIMAGE_ICON_FILE>>
+    --executable=$<TARGET_FILE:NeuroKart64>
+    $<$<BOOL:$<TARGET_PROPERTY:NeuroKart64,APPIMAGE_DESKTOP_FILE>>:--desktop-file=$<TARGET_PROPERTY:NeuroKart64,APPIMAGE_DESKTOP_FILE>>
+    $<$<BOOL:$<TARGET_PROPERTY:NeuroKart64,APPIMAGE_ICON_FILE>>:--icon-file=$<TARGET_PROPERTY:NeuroKart64,APPIMAGE_ICON_FILE>>
     --output=appimage
     --verbosity=2
 )

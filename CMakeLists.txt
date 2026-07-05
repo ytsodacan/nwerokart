@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.0 FATAL_ERROR)
 
 # Set the project version and language
-project(Spaghettify VERSION 1.0.0 LANGUAGES C CXX ASM)
+project(NeuroKart64 VERSION 1.0.0 LANGUAGES C CXX ASM)
 include(FetchContent)
 
 set(NATO_PHONETIC_ALPHABET
@@ -18,7 +18,7 @@ math(EXPR PATCH_INDEX "${PROJECT_VERSION_PATCH}")
 list(GET NATO_PHONETIC_ALPHABET ${PATCH_INDEX} PROJECT_PATCH_WORD)
 
 set(PROJECT_BUILD_NAME "Bolognese ${PROJECT_PATCH_WORD}" CACHE STRING "" FORCE)
-set(PROJECT_TEAM "SpaghettiKart Team - HarbourMasters")
+set(PROJECT_TEAM "NeuroKart64 Team - HarbourMasters")
 
 execute_process(
   COMMAND git config --global --add safe.directory ${CMAKE_SOURCE_DIR}
@@ -56,7 +56,7 @@ else()
   set(PROJECT_VERSION_PATCH 0)
 endif()
 
-message("Spaghetti Kart version: ${PROJECT_VERSION} ${PROJECT_PATCH_WORD}")
+message("NeuroKart 64 version: ${PROJECT_VERSION} ${PROJECT_PATCH_WORD}")
 
 if(APPLE)
   enable_language(OBJCXX)
@@ -72,7 +72,7 @@ set(CMAKE_OSX_ARCHITECTURES=arm64;x86_64)
 set(CMAKE_CXX_STANDARD 20 CACHE STRING "The C++ standard to use")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD 11 CACHE STRING "The C standard to use")
-set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Spaghettify)
+set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT NeuroKart64)
 #add_compile_options(-fsanitize=address)
 #add_link_options(-fsanitize=address)
 
@@ -223,7 +223,7 @@ add_compile_definitions(
     NON_MATCHING=1
     NON_EQUIVALENT=1
  AVOID_UB=1
- SPAGHETTI_VERSION="${PROJECT_VERSION}"
+ NEUROKART64_VERSION="${PROJECT_VERSION}"
 )
 
 
@@ -697,9 +697,9 @@ endif()
 add_custom_command(
  TARGET ${PROJECT_NAME} POST_BUILD
  COMMENT "Copying asset yamls..."
- COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/config.yml" "$<TARGET_FILE_DIR:Spaghettify>/config.yml"
- COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/yamls/" "$<TARGET_FILE_DIR:Spaghettify>/yamls/"
-    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/meta/" "$<TARGET_FILE_DIR:Spaghettify>/meta/"
+ COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/config.yml" "$<TARGET_FILE_DIR:NeuroKart64>/config.yml"
+ COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/yamls/" "$<TARGET_FILE_DIR:NeuroKart64>/yamls/"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/meta/" "$<TARGET_FILE_DIR:NeuroKart64>/meta/"
 )
 
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "NintendoSwitch")
@@ -749,37 +749,37 @@ endif()
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMAND ${TORCH_EXECUTABLE} header -o baserom.us.z64
     COMMAND ${TORCH_EXECUTABLE} o2r baserom.us.z64 --additional-files meta/mods.toml
-    COMMAND ${TORCH_EXECUTABLE} pack assets spaghetti.o2r o2r
+    COMMAND ${TORCH_EXECUTABLE} pack assets neurokart64.o2r o2r
     COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/mk64.o2r" "${CMAKE_BINARY_DIR}/mk64.o2r"
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/spaghetti.o2r" "${CMAKE_BINARY_DIR}/spaghetti.o2r"
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/neurokart64.o2r" "${CMAKE_BINARY_DIR}/neurokart64.o2r"
 )
 
   add_custom_target(
     GenerateO2R
     DEPENDS TorchExternal
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-    COMMAND ${TORCH_EXECUTABLE} pack assets spaghetti.o2r o2r
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/spaghetti.o2r" "${CMAKE_BINARY_DIR}/spaghetti.o2r"
+    COMMAND ${TORCH_EXECUTABLE} pack assets neurokart64.o2r o2r
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different "${CMAKE_SOURCE_DIR}/neurokart64.o2r" "${CMAKE_BINARY_DIR}/neurokart64.o2r"
 )
 
   if("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
-    install(FILES "${CMAKE_BINARY_DIR}/spaghetti.o2r" DESTINATION . COMPONENT ${PROJECT_NAME})
+    install(FILES "${CMAKE_BINARY_DIR}/neurokart64.o2r" DESTINATION . COMPONENT ${PROJECT_NAME})
   endif()
 
   if(CMAKE_SYSTEM_NAME MATCHES "Darwin")
     add_custom_target(CreateOSXIcons
-    COMMAND mkdir -p ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset
-    COMMAND sips -z 16 16     icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_16x16.png
-    COMMAND sips -z 32 32     icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_16x16@2x.png
-    COMMAND sips -z 32 32     icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_32x32.png
-    COMMAND sips -z 64 64     icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_32x32@2x.png
-    COMMAND sips -z 128 128   icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_128x128.png
-    COMMAND sips -z 256 256   icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_128x128@2x.png
-    COMMAND sips -z 256 256   icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_256x256.png
-    COMMAND sips -z 512 512   icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_256x256@2x.png
-    COMMAND sips -z 512 512   icon.png --out ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_512x512.png
-    COMMAND cp                icon.png ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset/icon_512x512@2x.png
-    COMMAND iconutil -c icns -o ${CMAKE_BINARY_DIR}/macosx/spaghettikart.icns ${CMAKE_BINARY_DIR}/macosx/spaghettikart.iconset
+    COMMAND mkdir -p ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset
+    COMMAND sips -z 16 16     icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_16x16.png
+    COMMAND sips -z 32 32     icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_16x16@2x.png
+    COMMAND sips -z 32 32     icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_32x32.png
+    COMMAND sips -z 64 64     icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_32x32@2x.png
+    COMMAND sips -z 128 128   icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_128x128.png
+    COMMAND sips -z 256 256   icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_128x128@2x.png
+    COMMAND sips -z 256 256   icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_256x256.png
+    COMMAND sips -z 512 512   icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_256x256@2x.png
+    COMMAND sips -z 512 512   icon.png --out ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_512x512.png
+    COMMAND cp                icon.png ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset/icon_512x512@2x.png
+    COMMAND iconutil -c icns -o ${CMAKE_BINARY_DIR}/macosx/neurokart64.icns ${CMAKE_BINARY_DIR}/macosx/neurokart64.iconset
     WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
     COMMENT "Creating OSX icons ..."
     )
@@ -788,7 +788,7 @@ endif()
   endif()
 
   set_property(TARGET ${PROJECT_NAME} PROPERTY APPIMAGE_DESKTOP_FILE_TERMINAL YES)
-  set_property(TARGET ${PROJECT_NAME} PROPERTY APPIMAGE_DESKTOP_FILE "${CMAKE_SOURCE_DIR}/SpaghettiKart.desktop")
+  set_property(TARGET ${PROJECT_NAME} PROPERTY APPIMAGE_DESKTOP_FILE "${CMAKE_SOURCE_DIR}/NeuroKart64.desktop")
   set_property(TARGET ${PROJECT_NAME} PROPERTY APPIMAGE_ICON_FILE "${CMAKE_SOURCE_DIR}/icon.png")
 endif()
 

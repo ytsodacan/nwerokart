@@ -1,7 +1,7 @@
 [Desktop Entry]
 Version=1.0
-Name=SPAGHETTIKART
-Exec=Spaghettify
+Name=NEUROKART64
+Exec=neurokart64
 Terminal=false
 Icon=icon
 Type=Application

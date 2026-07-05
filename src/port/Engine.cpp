@@ -28,7 +28,7 @@
 #include "ship/window/gui/resource/Font.h"
 #include "ship/window/gui/resource/FontFactory.h"
 #include "libultraship/controller/controldeck/ControlDeck.h"
-#include "SpaghettiGui.h"
+#include "NeuroKart64Gui.h"
 
 #include "port/interpolation/FrameInterpolation.h"
 #include <fast/Fast3dWindow.h>
@@ -81,7 +81,7 @@ bool CreateDirectoryRecursive(std::string const& dirName, std::error_code& err) 
 
 GameEngine::GameEngine() {
     // Initialize context properties early to recognize paths properly for non-portable builds
-    this->context = Ship::Context::CreateUninitializedInstance("Spaghetti Kart", "spaghettify", "spaghettify.cfg.json");
+    this->context = Ship::Context::CreateUninitializedInstance("NeuroKart 64", "neurokart64", "neurokart64.cfg.json");
 
 #ifdef __SWITCH__
     Ship::Switch::Init(Ship::PreInitPhase);
@@ -170,7 +170,7 @@ GameEngine::GameEngine() {
     this->context->InitResourceManager({assets_path}, {}, 3); // without this line InitWindow fails in Gui::Init()
     this->context->InitConsole(); // without this line the GuiWindow constructor fails in ConsoleWindow::InitElement()
 
-    auto gui = std::make_shared<Ship::SpaghettiGui>(std::vector<std::shared_ptr<Ship::GuiWindow>>({}));
+    auto gui = std::make_shared<Ship::NeuroKart64Gui>(std::vector<std::shared_ptr<Ship::GuiWindow>>({}));
     auto wnd = std::make_shared<Fast::Fast3dWindow>(gui);
 
     // auto wnd = std::make_shared<Fast::Fast3dWindow>(std::vector<std::shared_ptr<Ship::GuiWindow>>({}));
@@ -184,7 +184,7 @@ GameEngine::GameEngine() {
     Ship::Context::GetInstance()->GetLogger()->set_pattern("[%H:%M:%S.%e] [%s:%#] [%l] %v");
 #endif
 
-    SPDLOG_INFO("Spaghetti Kart " SPAGHETTI_VERSION);
+    SPDLOG_INFO("NeuroKart 64 " NEUROKART64_VERSION);
     SPDLOG_INFO(CVarGetInteger("gEnableDebugMode", 0) == 0 ? "Debug Mode deactivated" : "Debug Mode activated");
 
     wnd->SetRendererUCode(ucode_f3dex);

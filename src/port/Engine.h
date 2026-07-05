@@ -3,7 +3,7 @@
 #include "port/audio/HMAS.h"
 
 static const char game_asset_file[] = "mk64.o2r";
-static const char engine_asset_file[] = "spaghetti.o2r";
+static const char engine_asset_file[] = "neurokart64.o2r";
 
 #define LOAD_ASSET(path) \
 (path == NULL ? NULL \
