@@ -418,6 +418,17 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(tomlplusplus)
 target_link_libraries(${PROJECT_NAME} PRIVATE tomlplusplus::tomlplusplus)
 
+#=================== IXWebSocket (Online Multiplayer transport) ===================
+set(USE_TLS ON CACHE BOOL "" FORCE)
+set(IXWEBSOCKET_INSTALL OFF CACHE BOOL "" FORCE)
+FetchContent_Declare(
+    ixwebsocket
+    GIT_REPOSITORY https://github.com/machinezone/IXWebSocket.git
+    GIT_TAG        v11.4.6
+)
+FetchContent_MakeAvailable(ixwebsocket)
+target_link_libraries(${PROJECT_NAME} PRIVATE ixwebsocket)
+
 #==============================================================================#
 # Libultraship Integration                                                     #
 #==============================================================================#
