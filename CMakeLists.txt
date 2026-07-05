@@ -703,12 +703,38 @@ add_custom_command(
 )
 
 if(NOT CMAKE_SYSTEM_NAME STREQUAL "NintendoSwitch")
-  include(ExternalProject)
+include(ExternalProject)
+  set(TORCH_EXTRA_INCLUDE_FLAGS "")
+  if(APPLE)
+    set(TORCH_EXTRA_INCLUDE_FLAGS "-isystem /opt/homebrew/include")
+  endif()
+
+  set(TORCH_CXX_FLAGS "${TORCH_EXTRA_INCLUDE_FLAGS}")
+
   ExternalProject_Add(TorchExternal
     PREFIX TorchExternal
     SOURCE_DIR ${CMAKE_SOURCE_DIR}/torch
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/torch
+    CMAKE_ARGS 
+        -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/torch
+        -DCMAKE_C_COMPILER=${CMAKE_C_COMPILER}
+        -DCMAKE_CXX_COMPILER=${CMAKE_CXX_COMPILER}
+        -DCMAKE_AR=${CMAKE_AR}
+        -DCMAKE_RANLIB=${CMAKE_RANLIB}
+	"-DCMAKE_CXX_FLAGS=${TORCH_CXX_FLAGS}"
+	"-DCMAKE_C_FLAGS=${TORCH_EXTRA_INCLUDE_FLAGS}"
 )
+
+# --- Fix for modern compiler warnings ---
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CMAKE_AR "/opt/homebrew/opt/llvm/bin/llvm-ar")
+    set(CMAKE_RANLIB "/opt/homebrew/opt/llvm/bin/llvm-ranlib")
+    add_compile_options(
+        -Wno-nan-infinity-disabled
+        -Wno-macro-redefined
+        -Wno-missing-braces
+        -Wno-error
+    )
+endif()
 
   ExternalProject_Get_Property(TorchExternal install_dir)
   if (MSVC)
