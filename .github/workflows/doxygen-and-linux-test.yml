@@ -17,14 +17,13 @@ jobs:
       
       - name: Install Doxygen
         run: |
-          sudo apt-get install graphviz doxygen
-          wget https://www.doxygen.nl/files/doxygen-1.13.2.linux.bin.tar.gz
-          tar -xzf doxygen-*.linux.bin.tar.gz
+          sudo apt-get update
+          sudo apt-get install -y graphviz doxygen
       
       - name: Generate Doxygen documentation
         run: |
-          ./doxygen-*/bin/doxygen Doxyfile
-      
+          doxygen Doxyfile
+
       - name: Create .nojekyll
         run: touch docs/html/.nojekyll
       
