@@ -116,7 +116,7 @@ void PortMenu::AddSettings() {
         .Options(ComboboxOptions()
                      .Tooltip("Changes the Theme of the Menu Widgets.")
                      .ComboMap(menuThemeOptions)
-                     .DefaultIndex(Colors::LightBlue));
+                     .DefaultIndex(Colors::Neuro));
     AddWidget(path, "Menu Extent", WIDGET_CVAR_COMBOBOX)
         .CVar("gSettings.Menu.Extent")
         .Options(ComboboxOptions()

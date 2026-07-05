@@ -31,6 +31,9 @@ static const std::unordered_map<int32_t, const char*> menuThemeOptions = {
     { UIWidgets::Colors::Brown, "Brown" },
     { UIWidgets::Colors::Gray, "Gray" },
     { UIWidgets::Colors::DarkGray, "Dark Gray" },
+    { UIWidgets::Colors::Neuro, "Neuro" },
+    { UIWidgets::Colors::LightNeuro, "Light Neuro" },
+    { UIWidgets::Colors::DarkNeuro, "Dark Neuro" },
 };
 
 static const std::unordered_map<int32_t, const char*> introBehaviourOptions = {
