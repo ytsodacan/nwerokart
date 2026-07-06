@@ -1,6 +1,7 @@
 #include "NetGameplayBridge.h"
 
 #include <algorithm>
+#include <cstdio>
 #include <cstdint>
 
 #include "NetProtocol.h"
@@ -18,6 +19,8 @@ using Net::NetSession;
 extern "C" {
 const char* TrackBrowser_GetTrackResourceName(void);
 void TrackBrowser_SetTrack(const char* name);
+size_t TrackBrowser_GetTrackIndex(void);
+void NetGameplay_CopyTextToClipboard(const char* text);
 }
 
 // Set true for exactly one race entry whenever the client applies a StartRace
@@ -26,6 +29,7 @@ void TrackBrowser_SetTrack(const char* name);
 // takes effect. While false, NetGameplay_ShouldBlockRaceTransition() blocks a
 // guest's own local menus from starting an unrelated race.
 static bool sClientRaceAuthorizedByHost = false;
+static constexpr const char* kDefaultRelayUrl = "wss://neurorelay.sillyprootsoda.com";
 
 namespace {
 
@@ -147,6 +151,38 @@ Player* PlayerForSlot(int slot) {
     return &gPlayers[slot];
 }
 
+// Shared by NetGameplay_HostStartRace() (explicit button) and
+// NetGameplay_HostBroadcastRaceStartIfHosting() (automatic, any race-entry
+// path) - gathers the host's own + every connected guest's character, plus
+// the current track/mode/CC, and broadcasts it as a StartRaceMsg. No-op if
+// this session isn't the host.
+void BroadcastCurrentRaceSetupIfHosting() {
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() != Net::Role::Host) {
+        return;
+    }
+
+    uint8_t characterForSlot[Net::MAX_NET_PLAYERS] = {};
+    characterForSlot[0] = static_cast<uint8_t>(gCharacterSelections[0]);
+    for (int slot = 1; slot < Net::MAX_NET_PLAYERS; ++slot) {
+        uint8_t guestCharacter = 0;
+        if (session.GetGuestCharacter(slot, guestCharacter)) {
+            characterForSlot[slot] = guestCharacter;
+        }
+    }
+
+    const char* trackResourceName = TrackBrowser_GetTrackResourceName();
+    session.BroadcastStartRace(trackResourceName != nullptr ? trackResourceName : "",
+                                static_cast<uint8_t>(gModeSelection), static_cast<uint8_t>(gCCSelection),
+                                characterForSlot);
+}
+
+// Character source that works for either role, unlike the host-only
+// NetGameplay_GetGuestCharacter(): on the host it's still that guest's Hello-
+// reported character; on a client, every slot's character was already copied
+// into gCharacterSelections[] wholesale by NetGameplay_ClientPollStartRace()
+// (see StartRaceMsg), so it's just a lookup there, guarded by the real
+// connected-player count computed by NetGameplay_ConfigureScreenModeForSession().
 struct Controller* ControllerForSlot(int slot) {
     // gControllers is sized NUM_PLAYERS, but this port's per-frame physical
     // read (read_controllers()) and per-player input consumption
@@ -198,8 +234,19 @@ extern "C" void NetGameplay_PerFrameInput(void) {
                 // Always send the true physical reading upstream, unmodified.
                 session.SendLocalInput(ControllerToInputState(physical, static_cast<uint32_t>(gGlobalTimer)));
 
+                // The copy-to-localSlot-then-neutralize-slot0 dance below only
+                // makes sense once we're actually racing and gControllers[0]
+                // represents someone else's kart. Before that - sitting in the
+                // online lobby, character select, any menu - gControllers[0] IS
+                // this guest's own real input, and the menu code
+                // (player_select_menu_act, main_menu_act, etc.) reads it
+                // directly every frame. Zeroing it unconditionally here was the
+                // actual cause of "guest can't change their character": the
+                // moment Connect() succeeds and localSlot becomes > 0, every
+                // button press was wiped before update_menus() ever saw it -
+                // including in the lobby, long before any race started.
                 const int localSlot = session.GetLocalSlot();
-                if (localSlot > 0) {
+                if (gGamestate == RACING && localSlot > 0) {
                     struct Controller* ours = ControllerForSlot(localSlot);
                     if (ours != nullptr) {
                         // Drive OUR kart locally with our own input.
@@ -267,33 +314,34 @@ extern "C" void NetGameplay_PerFrameSimSync(uint32_t frameNumber) {
 extern "C" void NetGameplay_ConfigureScreenModeForSession(void) {
     NetSession& session = NetSession::Instance();
     switch (session.GetRole()) {
-        case Net::Role::Host: {
-            // Always derive the split from network truth once a session is
-            // active - the local Game Select screen's 1P/2P/3P/4P pick is
-            // meaningless in online mode (there's no lobby yet forcing people
-            // through a dedicated online path), so it must never be trusted
-            // over the real connected player count. Previously this only
-            // recalculated when already in SCREEN_MODE_1P, which meant a host
-            // who locally picked 2P/3P/4P before hosting kept that stale local
-            // split (with a local CPU/ghost in the other slot) instead of ever
-            // reflecting the actual guest.
-            const int totalPlayers = std::max(session.GetConnectedPlayerCount(), 1);
-            gPlayerCountSelection1 = std::min(totalPlayers, 4);
-            if (gPlayerCountSelection1 <= 1) {
-                gActiveScreenMode = SCREEN_MODE_1P;
-            } else if (gPlayerCountSelection1 == 2) {
-                gActiveScreenMode = SCREEN_MODE_2P_SPLITSCREEN_HORIZONTAL;
-            } else {
-                gActiveScreenMode = SCREEN_MODE_3P_4P_SPLITSCREEN;
-            }
+        case Net::Role::Host:
+        case Net::Role::Client: {
+            // Both host and guest always render a single fullscreen camera on
+            // their own kart - not local splitscreen. gActiveScreenMode is what
+            // actually drives camera/viewport setup in spawn_multiplayer_cameras()
+            // and load_kart_textures() (both switch on it directly), so forcing
+            // it here is sufficient for that. Also force gScreenModeSelection in
+            // case anything re-derives gActiveScreenMode from it later - belt and
+            // suspenders, since we couldn't fully trace every assignment site.
+            gActiveScreenMode = SCREEN_MODE_1P;
+            gScreenModeSelection = SCREEN_MODE_1P;
+
+            // gPlayerCountSelection1 is a SEPARATE concern from screen mode: race
+            // results, VS-mode win tracking, and lap-finish audio/rank logic in
+            // race_logic.c (func_8028EF28 and friends) key off it as "how many
+            // real racers are in this race", NOT camera count - e.g. GRAND_PRIX's
+            // race-end check is gated on gPlayerCountSelection1 matching the
+            // actual player total. Forcing it to 1 (as a prior version of this
+            // function did) while gPlayers[1] genuinely exists and races is
+            // exactly what caused the host to crash when a network guest's kart
+            // triggered lap-finish logic sized/gated for 1 player. Use the real
+            // connected total instead - this does NOT reintroduce splitscreen,
+            // since gActiveScreenMode (forced above) is what actually controls
+            // camera/viewport count in the two functions that matter.
+            const int totalPlayers = session.GetConnectedPlayerCount();
+            gPlayerCountSelection1 = (totalPlayers >= 1 && totalPlayers <= 4) ? totalPlayers : 1;
             break;
         }
-        case Net::Role::Client:
-            // Always a single fullscreen camera on this client's own kart,
-            // no matter how many players are actually in the race.
-            gActiveScreenMode = SCREEN_MODE_1P;
-            gPlayerCountSelection1 = 1;
-            break;
         default:
             break;
     }
@@ -316,24 +364,16 @@ extern "C" void NetGameplay_HostStartRace(void) {
         return;
     }
 
-    uint8_t characterForSlot[Net::MAX_NET_PLAYERS] = {};
-    characterForSlot[0] = static_cast<uint8_t>(gCharacterSelections[0]);
-    for (int slot = 1; slot < Net::MAX_NET_PLAYERS; ++slot) {
-        uint8_t guestCharacter = 0;
-        if (session.GetGuestCharacter(slot, guestCharacter)) {
-            characterForSlot[slot] = guestCharacter;
-        }
-    }
-
-    const char* trackResourceName = TrackBrowser_GetTrackResourceName();
-    session.BroadcastStartRace(trackResourceName != nullptr ? trackResourceName : "",
-                                static_cast<uint8_t>(gModeSelection), static_cast<uint8_t>(gCCSelection),
-                                characterForSlot);
+    BroadcastCurrentRaceSetupIfHosting();
 
     // Skip the host's own local menu navigation too - one button starts the
     // race for host and every guest at once. Takes effect next
     // thread5_iteration, same as any other gGamestateNext change.
     gGamestateNext = RACING;
+}
+
+extern "C" void NetGameplay_HostBroadcastRaceStartIfHosting(void) {
+    BroadcastCurrentRaceSetupIfHosting();
 }
 
 extern "C" void NetGameplay_ClientPollStartRace(void) {
@@ -348,6 +388,14 @@ extern "C" void NetGameplay_ClientPollStartRace(void) {
     }
 
     TrackBrowser_SetTrack(msg.trackResourceName);
+    // TrackBrowser_SetTrack() alone only updates the TrackBrowser's own internal
+    // index/current-track pointer - it does NOT touch gCurrentCourseId, which is
+    // the actual variable race setup/results/menu code reads elsewhere (see how
+    // the debug menu's own track browsing always follows up with exactly this
+    // same call). Without this, a guest kept whatever track they'd last
+    // locally browsed to, which is why host and guest ended up racing two
+    // different maps.
+    gCurrentCourseId = (s16) TrackBrowser_GetTrackIndex();
     gModeSelection = msg.modeSelection;
     gCCSelection = msg.ccSelection;
     for (int i = 0; i < NUM_PLAYERS && i < Net::MAX_NET_PLAYERS; ++i) {
@@ -369,6 +417,28 @@ extern "C" int NetGameplay_GetGuestCharacter(int slot) {
     return static_cast<int>(characterId);
 }
 
+// Character source that works for either role, unlike the host-only
+// NetGameplay_GetGuestCharacter() above: on the host it's still that guest's
+// Hello-reported character; on a client, every slot's character was already
+// copied into gCharacterSelections[] wholesale by
+// NetGameplay_ClientPollStartRace() (see StartRaceMsg), so it's just a lookup
+// there, guarded by the real connected-player count computed by
+// NetGameplay_ConfigureScreenModeForSession().
+extern "C" int NetGameplay_GetNetworkCharacterForSlot(int slot) {
+    NetSession& session = NetSession::Instance();
+    switch (session.GetRole()) {
+        case Net::Role::Host:
+            return NetGameplay_GetGuestCharacter(slot);
+        case Net::Role::Client:
+            if (slot < 0 || slot >= gPlayerCountSelection1 || slot >= NUM_PLAYERS) {
+                return -1;
+            }
+            return static_cast<int>(gCharacterSelections[slot]);
+        default:
+            return -1;
+    }
+}
+
 extern "C" int NetGameplay_ShouldBlockRaceTransition(void) {
     NetSession& session = NetSession::Instance();
     if (session.GetRole() != Net::Role::Client) {
@@ -379,4 +449,85 @@ extern "C" int NetGameplay_ShouldBlockRaceTransition(void) {
 
 extern "C" void NetGameplay_ConsumeRaceAuthorization(void) {
     sClientRaceAuthorizedByHost = false;
+}
+
+extern "C" void NetGameplay_AuthorizeNativeRaceEntry(void) {
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() != Net::Role::Client) {
+        return;
+    }
+    sClientRaceAuthorizedByHost = true;
+}
+
+extern "C" int NetGameplay_GetRole(void) {
+    NetSession& session = NetSession::Instance();
+    switch (session.GetRole()) {
+        case Net::Role::Host:
+            return 1;
+        case Net::Role::Client:
+            return 2;
+        default:
+            return 0;
+    }
+}
+
+extern "C" int NetGameplay_GetConnectionStatus(void) {
+    return static_cast<int>(NetSession::Instance().GetStatus());
+}
+
+extern "C" void NetGameplay_StartHostDefaultRelay(void) {
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() != Net::Role::None) {
+        return;
+    }
+    std::string error;
+    session.StartHost(kDefaultRelayUrl, error);
+}
+
+extern "C" void NetGameplay_JoinRoomCode(const char* roomCode) {
+    if (roomCode == nullptr || roomCode[0] == '\0') {
+        return;
+    }
+
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() == Net::Role::Client) {
+        session.Disconnect();
+    } else if (session.GetRole() == Net::Role::Host) {
+        session.StopHost();
+    }
+
+    std::string error;
+    session.Connect(kDefaultRelayUrl, roomCode, error);
+}
+
+extern "C" void NetGameplay_ClearSession(void) {
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() == Net::Role::Host) {
+        session.StopHost();
+    } else if (session.GetRole() == Net::Role::Client) {
+        session.Disconnect();
+    }
+}
+
+extern "C" void NetGameplay_CopyRoomCodeToClipboard(void) {
+    std::string roomCode = NetSession::Instance().GetRoomCode();
+    if (!roomCode.empty()) {
+        NetGameplay_CopyTextToClipboard(roomCode.c_str());
+    }
+}
+
+extern "C" void NetGameplay_GetRoomCode(char* out, int outSize) {
+    if (out == nullptr || outSize <= 0) {
+        return;
+    }
+    std::string roomCode = NetSession::Instance().GetRoomCode();
+    std::snprintf(out, static_cast<size_t>(outSize), "%s", roomCode.c_str());
+}
+
+extern "C" void NetGameplay_GetLastError(char* out, int outSize) {
+    if (out == nullptr || outSize <= 0) {
+        return;
+    }
+    std::string error = NetSession::Instance().GetLastError();
+    std::snprintf(out, static_cast<size_t>(outSize), "%s", error.c_str());
 }

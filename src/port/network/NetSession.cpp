@@ -263,6 +263,15 @@ void NetSession::BroadcastStartRace(const std::string& trackResourceName, uint8_
                 ccSelection);
 }
 
+void NetSession::BroadcastHostAdvance() {
+    if (mRole != Role::Host || !mSocket) {
+        return;
+    }
+    HostAdvanceMsg msg;
+    mSocket->sendBinary(ToRelayUnicast(RELAY_BROADCAST, ToPayload(msg)));
+    SPDLOG_INFO("[NetSession] Broadcasting HostAdvance");
+}
+
 bool NetSession::GetGuestCharacter(int slot, uint8_t& outCharacterId) {
     if (slot < 0 || slot >= MAX_NET_PLAYERS) {
         return false;
@@ -393,6 +402,11 @@ void NetSession::HandleClientBinary(const std::string& data) {
             mHasPendingRaceStart = true;
             break;
         }
+        case MsgType::HostAdvance: {
+            std::lock_guard<std::mutex> lock(mHostAdvanceMutex);
+            mHasPendingHostAdvance = true;
+            break;
+        }
         default:
             break;
     }
@@ -405,6 +419,15 @@ bool NetSession::PopPendingRaceStart(StartRaceMsg& out) {
     }
     out = mPendingRaceStart;
     mHasPendingRaceStart = false;
+    return true;
+}
+
+bool NetSession::PopPendingHostAdvance() {
+    std::lock_guard<std::mutex> lock(mHostAdvanceMutex);
+    if (!mHasPendingHostAdvance) {
+        return false;
+    }
+    mHasPendingHostAdvance = false;
     return true;
 }
 

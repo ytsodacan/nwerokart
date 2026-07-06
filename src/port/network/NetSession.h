@@ -93,6 +93,10 @@ class NetSession {
     // straight into the same race instead of navigating their own local menus.
     void BroadcastStartRace(const std::string& trackResourceName, uint8_t modeSelection, uint8_t ccSelection,
                              const uint8_t characterForSlot[MAX_NET_PLAYERS]);
+    // Call once, when the host presses Continue on the native Host Lobby screen.
+    // Signals every connected guest that they may now proceed to character
+    // select - see HostAdvanceMsg in NetProtocol.h for why this exists.
+    void BroadcastHostAdvance();
     // Character a connected guest asked to play as (from their Hello). Returns
     // false if that slot isn't connected.
     bool GetGuestCharacter(int slot, uint8_t& outCharacterId);
@@ -112,6 +116,11 @@ class NetSession {
     // Returns true exactly once per received StartRace message (fills `out` and
     // clears the pending flag). Poll this once a frame from the main loop.
     bool PopPendingRaceStart(StartRaceMsg& out);
+    // Returns true exactly once when a HostAdvance message has arrived (and
+    // clears the pending flag) - see HostAdvanceMsg in NetProtocol.h. Poll this
+    // once a frame while waiting in the native Join Code screen after
+    // connecting.
+    bool PopPendingHostAdvance();
     // Pops one pending PlayerLeft notification (see HandleClientBinary's
     // MsgType::PlayerLeft case). Returns false and leaves slotOut untouched
     // once the queue is empty. Call in a loop to drain multiple in one frame.
@@ -161,6 +170,8 @@ class NetSession {
     std::mutex mRaceStartMutex;
     StartRaceMsg mPendingRaceStart;
     bool mHasPendingRaceStart = false;
+    std::mutex mHostAdvanceMutex;
+    bool mHasPendingHostAdvance = false;
 };
 
 } // namespace Net

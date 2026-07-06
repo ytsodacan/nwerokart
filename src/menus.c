@@ -23,6 +23,7 @@
 #include <sounds.h>
 #include "spawn_players.h"
 #include "port/Game.h"
+#include "port/network/NetGameplayBridge.h"
 
 /** BSS **/
 s32 gIntroModelZEye;
@@ -38,6 +39,12 @@ s8 gCharacterGridSelections[4];   // Map from each player to current grid positi
 bool gCharacterGridIsSelected[4]; // Sets true if a character is selected for each player
 s8 gSubMenuSelection;             // Map Select states, Options and Ghost Data text selection
 s8 gMainMenuSelection;
+s8 gOnlineMenuState;
+s8 gOnlineRoomCodeCursor;
+s8 gOnlineHostMenuSelection;
+s8 gOnlineHostCodeVisible;
+s16 gOnlineCodeCopiedTimer;
+char gOnlineRoomCodeInput[5];
 s8 gPlayerSelectMenuSelection; // grid screen state?
 s8 gDebugMenuSelection;
 s8 gControllerPakMenuSelection;
@@ -154,6 +161,10 @@ const s8 unref_800F2BDC[4] = { 1, 0, 0, 0 };
 const s8 sScreenModeIdxFromPlayerMode[4] = { 0, 1, 3, 4 };
 
 const union GameModePack sSoundMenuPack = { { SOUND_STEREO, SOUND_HEADPHONES, SOUND_SURROUND, SOUND_MONO } };
+static const char sOnlineRoomCodeAlphabet[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+static s8 sOnlineJoinAttempted;
+static s8 sOnlineJoinedToCharacterSelect;
+static s8 sOnlineHostReadyToContinue;
 
 /**************************/
 
@@ -1290,6 +1301,66 @@ void setup_game_mode_selected(void) {
     }
 }
 
+static void online_menu_reset_room_code(void) {
+    gOnlineRoomCodeInput[0] = 'A';
+    gOnlineRoomCodeInput[1] = 'A';
+    gOnlineRoomCodeInput[2] = 'A';
+    gOnlineRoomCodeInput[3] = 'A';
+    gOnlineRoomCodeInput[4] = '\0';
+    gOnlineRoomCodeCursor = 0;
+}
+
+static s32 online_menu_find_alphabet_index(char c) {
+    s32 i;
+
+    for (i = 0; sOnlineRoomCodeAlphabet[i] != '\0'; i++) {
+        if (sOnlineRoomCodeAlphabet[i] == c) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+static void online_menu_cycle_current_char(s32 direction) {
+    s32 idx = online_menu_find_alphabet_index(gOnlineRoomCodeInput[gOnlineRoomCodeCursor]);
+    s32 max = (s32) sizeof(sOnlineRoomCodeAlphabet) - 2; // minus null terminator, then max index
+
+    idx += direction;
+    if (idx < 0) {
+        idx = max;
+    } else if (idx > max) {
+        idx = 0;
+    }
+    gOnlineRoomCodeInput[gOnlineRoomCodeCursor] = sOnlineRoomCodeAlphabet[idx];
+}
+
+static void online_menu_enter_character_select(void) {
+    // This online flow repurposes the "4P" menu lane for its Host/Join screens,
+    // which leaves gPlayerCount sitting at 4. gPlayerCount drives the LOCAL
+    // character-select grid (it waits for gPlayerCount physical controllers to
+    // each confirm a character) and the local spawn/mode pipeline - but each
+    // machine in an online race only ever has ONE local physical player (the
+    // other participant is remote, handled over the network, not a second
+    // local controller). Leaving it at 4 either hangs character select
+    // waiting for controllers 2-4 that don't exist, or - if forced through via
+    // the debug START-skip - leaves spawn/mode configured for "4 local
+    // players" while only 1 real controller and 1 network guest exist, which
+    // is what produces a kart-less, control-less race. Force it back to the
+    // correct value (1 local player on this machine) before it's used as an
+    // array index below.
+    gPlayerCount = 1;
+    gGameModeMenuColumn[gPlayerCount - 1] = 0;
+    gGameModeSubMenuColumn[gPlayerCount - 1][0] = 0;
+    setup_game_mode_selected();
+    // See NetGameplayBridge.h - this flow never sends a StartRace network
+    // message (unlike the ImGui Online Play panel's Start Race button), so
+    // without this a guest would be permanently blocked from ever entering
+    // RACING by NetGameplay_ShouldBlockRaceTransition(). No-op on the host.
+    NetGameplay_AuthorizeNativeRaceEntry();
+    func_8009E1C0();
+    play_sound2(SOUND_MENU_OK_CLICKED);
+}
+
 /**
  * Navigation of the main game mode select screen
  */
@@ -1346,11 +1417,29 @@ void main_menu_act(struct Controller* controller, u16 controllerIdx) {
                     play_sound2(SOUND_MENU_GO_BACK);
                     newMode = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
                 } else if (btnAndStick & A_BUTTON) {
-                    // L800B2C00
-                    gMainMenuSelection = MAIN_MENU_MODE_SELECT;
-                    reset_cycle_flash_menu();
-                    play_sound2(SOUND_MENU_SELECT);
-                    newMode = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                    if (gPlayerCount == 4) {
+                        // Repurpose the 4P lane as a native online submenu entry (Host/Join + code entry).
+                        reset_cycle_flash_menu();
+                        play_sound2(SOUND_MENU_SELECT);
+                        gMainMenuSelection = MAIN_MENU_MODE_SUB_SELECT;
+                        gGameModeMenuColumn[gPlayerCount - 1] = 0;
+                        gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]] = 0;
+                        gOnlineMenuState = ONLINE_MENU_STATE_PICK;
+                        sOnlineJoinAttempted = 0;
+                        sOnlineJoinedToCharacterSelect = 0;
+                        sOnlineHostReadyToContinue = 0;
+                        gOnlineHostMenuSelection = 0;
+                        gOnlineHostCodeVisible = 0;
+                        gOnlineCodeCopiedTimer = 0;
+                        online_menu_reset_room_code();
+                        newMode = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                    } else {
+                        // L800B2C00
+                        gMainMenuSelection = MAIN_MENU_MODE_SELECT;
+                        reset_cycle_flash_menu();
+                        play_sound2(SOUND_MENU_SELECT);
+                        newMode = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                    }
                 } else if (btnAndStick & CONT_L) {
                     // L800B2C58
                     gMainMenuSelection = MAIN_MENU_OPTION;
@@ -1423,6 +1512,145 @@ void main_menu_act(struct Controller* controller, u16 controllerIdx) {
             }
             case MAIN_MENU_MODE_SUB_SELECT:
             case MAIN_MENU_MODE_SUB_SELECT_GO_BACK: {
+                if (gPlayerCount == 4 && gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    s32 onlineStatus = NetGameplay_GetConnectionStatus();
+                    s32 onlineRole = NetGameplay_GetRole();
+
+                    if ((gOnlineMenuState == ONLINE_MENU_STATE_JOIN_CODE) && sOnlineJoinAttempted &&
+                        (onlineStatus == 2) && (onlineRole == 2) && !sOnlineJoinedToCharacterSelect) {
+                        sOnlineJoinedToCharacterSelect = 1;
+                        online_menu_enter_character_select();
+                        newMode = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                        break;
+                    }
+
+                    subMode = gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+
+                    if (gOnlineMenuState == ONLINE_MENU_STATE_PICK) {
+                        if ((btnAndStick & U_JPAD) && (subMode > 0)) {
+                            gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]] -= 1;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+                        if ((btnAndStick & D_JPAD) && (subMode < 1)) {
+                            gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]] += 1;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+
+                        subMode = gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                        if (btnAndStick & B_BUTTON) {
+                            gMainMenuSelection = MAIN_MENU_PLAYER_SELECT;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_GO_BACK);
+                        } else if (btnAndStick & A_BUTTON) {
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_SELECT);
+                            if (subMode == 0) {
+                                NetGameplay_StartHostDefaultRelay();
+                                gOnlineMenuState = ONLINE_MENU_STATE_HOST_WAIT;
+                                sOnlineHostReadyToContinue = 0;
+                                gOnlineHostMenuSelection = 0;
+                                gOnlineHostCodeVisible = 0;
+                                gOnlineCodeCopiedTimer = 0;
+                            } else {
+                                gOnlineMenuState = ONLINE_MENU_STATE_JOIN_CODE;
+                                sOnlineJoinAttempted = 0;
+                                online_menu_reset_room_code();
+                            }
+                        }
+                    } else if (gOnlineMenuState == ONLINE_MENU_STATE_JOIN_CODE) {
+                        if ((btnAndStick & L_JPAD) && gOnlineRoomCodeCursor > 0) {
+                            gOnlineRoomCodeCursor--;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+                        if ((btnAndStick & R_JPAD) && gOnlineRoomCodeCursor < 3) {
+                            gOnlineRoomCodeCursor++;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+                        if (btnAndStick & U_JPAD) {
+                            online_menu_cycle_current_char(1);
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+                        if (btnAndStick & D_JPAD) {
+                            online_menu_cycle_current_char(-1);
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+
+                        if (btnAndStick & B_BUTTON) {
+                            gOnlineMenuState = ONLINE_MENU_STATE_PICK;
+                            sOnlineJoinAttempted = 0;
+                            NetGameplay_ClearSession();
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_GO_BACK);
+                        } else if (btnAndStick & A_BUTTON) {
+                            NetGameplay_JoinRoomCode(gOnlineRoomCodeInput);
+                            sOnlineJoinAttempted = 1;
+                            sOnlineJoinedToCharacterSelect = 0;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_SELECT);
+                        }
+                    } else if (gOnlineMenuState == ONLINE_MENU_STATE_HOST_WAIT) {
+                        if (gOnlineCodeCopiedTimer > 0) {
+                            gOnlineCodeCopiedTimer--;
+                        }
+
+                        if (onlineStatus == 2 && onlineRole == 1) {
+                            sOnlineHostReadyToContinue = 1;
+                        }
+
+                        if ((btnAndStick & U_JPAD) && gOnlineHostMenuSelection > 0) {
+                            gOnlineHostMenuSelection--;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+                        if ((btnAndStick & D_JPAD) && gOnlineHostMenuSelection < 3) {
+                            gOnlineHostMenuSelection++;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_CURSOR_MOVE);
+                        }
+
+                        if (btnAndStick & B_BUTTON) {
+                            NetGameplay_ClearSession();
+                            gOnlineMenuState = ONLINE_MENU_STATE_PICK;
+                            sOnlineHostReadyToContinue = 0;
+                            gOnlineHostCodeVisible = 0;
+                            gOnlineCodeCopiedTimer = 0;
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_GO_BACK);
+                        } else if (btnAndStick & A_BUTTON) {
+                            if (gOnlineHostMenuSelection == 0) {
+                                if (sOnlineHostReadyToContinue) {
+                                    online_menu_enter_character_select();
+                                    newMode =
+                                        gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                                    break;
+                                }
+                            } else if (gOnlineHostMenuSelection == 1) {
+                                gOnlineHostCodeVisible ^= 1;
+                            } else if (gOnlineHostMenuSelection == 2) {
+                                NetGameplay_CopyRoomCodeToClipboard();
+                                gOnlineCodeCopiedTimer = 120;
+                            } else {
+                                NetGameplay_ClearSession();
+                                gOnlineMenuState = ONLINE_MENU_STATE_PICK;
+                                sOnlineHostReadyToContinue = 0;
+                                gOnlineHostCodeVisible = 0;
+                                gOnlineCodeCopiedTimer = 0;
+                            }
+                            reset_cycle_flash_menu();
+                            play_sound2(SOUND_MENU_SELECT);
+                        }
+                    }
+
+                    newMode = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+                    break;
+                }
+
                 if (controllerIdx == PLAYER_ONE) {
                     gMenuTimingCounter++;
                     if ((gMenuTimingCounter == 100 || gMenuTimingCounter % 300 == 0)) {
@@ -1933,6 +2161,14 @@ void load_menu_states(s32 menuSelection) {
             gEnableDebugMode = CVarGetInteger("gEnableDebugMode", 0);
             set_mirror_mode(0);
             gTrackMapInit = 0;
+            gOnlineMenuState = ONLINE_MENU_STATE_PICK;
+            sOnlineJoinAttempted = 0;
+            sOnlineJoinedToCharacterSelect = 0;
+            sOnlineHostReadyToContinue = 0;
+            gOnlineHostMenuSelection = 0;
+            gOnlineHostCodeVisible = 0;
+            gOnlineCodeCopiedTimer = 0;
+            online_menu_reset_room_code();
             func_800B5F30();
             func_8000F0E0();
 

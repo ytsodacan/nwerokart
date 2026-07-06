@@ -117,6 +117,24 @@ std::string GetWindowButtonText(const char* text, bool menuOpen) {
 }
 } // namespace GameUI
 
+// C-callable bridge so menus.c (plain C, no access to GameUI::mOnlineLobbyWindow
+// or GuiWindow's C++ API) can open this window directly. Setting the
+// "gOnlineLobbyWindowOpen" CVar alone does NOT work here: GuiWindow only reads
+// its visibility CVar once, at construction time (see GuiWindow.cpp) - it never
+// polls the CVar again afterward, so changing it externally has no effect on an
+// already-running window. Show() is the only thing that actually works.
+extern "C" void NetGameplay_OpenOnlineLobby(void) {
+    if (GameUI::mOnlineLobbyWindow) {
+        GameUI::mOnlineLobbyWindow->Show();
+    }
+}
+
+extern "C" void NetGameplay_CopyTextToClipboard(const char* text) {
+    if (text != nullptr) {
+        ImGui::SetClipboardText(text);
+    }
+}
+
 static const char* filters[3] = {
 #ifdef __WIIU__
     "",

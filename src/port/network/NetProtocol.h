@@ -28,6 +28,7 @@ enum class MsgType : uint8_t {
     Pong = 8,
     StartRace = 9,  // host -> client(s): race is starting now, here's what to load
     SelectCharacter = 10, // client -> host: guest changed their character pick / ready state
+    HostAdvance = 11, // host -> client(s): host pressed Continue, guest(s) may now enter character select
 };
 
 enum ButtonBits : uint16_t {
@@ -131,6 +132,16 @@ struct SelectCharacterMsg {
     MsgHeader header{ MsgType::SelectCharacter };
     uint8_t characterId = 0;
     bool ready = false;
+};
+
+// Host -> guest(s), sent once when the host presses Continue on the native
+// Host Lobby screen (menus.c's ONLINE_MENU_STATE_HOST_WAIT). Without this, a
+// guest who already joined would jump straight to character select the
+// instant they connect, instead of waiting for the host - so two people could
+// connect but proceed on completely different timelines. No payload needed;
+// receipt alone is the signal.
+struct HostAdvanceMsg {
+    MsgHeader header{ MsgType::HostAdvance };
 };
 
 #pragma pack(pop)

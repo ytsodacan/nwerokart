@@ -36,6 +36,7 @@
 #include "spawn_players.h"
 #include "render_player.h"
 #include "decode.h"
+#include "port/network/NetGameplayBridge.h"
 //! @todo Move gGfxPool out of main.h
 // Unfortunately that's not a small effort due to weird import structure in this project
 #include "main.h"
@@ -6329,6 +6330,158 @@ static void draw_debug(void) {
     }
 }
 
+// The 4-player local slot doubles as the Online Multiplayer entry point.
+// We overlay text labels using the native menu text renderer so this path is
+// fully discoverable in-game without relying on the ImGui overlay.
+static void draw_online_hint(void) {
+    s32 i;
+    char roomCode[16];
+    char errorText[128];
+    char ch[2];
+    s32 status;
+    s32 role;
+    s32 row;
+
+    if (gMainMenuSelection == MAIN_MENU_PLAYER_SELECT && gPlayerCount == 4) {
+        set_text_color((s32) gGlobalTimer % 3);
+        print_text1_center_mode_1(0xA0, 0x0A, "ONLINE MULTIPLAYER", 0, 0.6f, 0.6f);
+        set_text_color(TEXT_YELLOW);
+        print_text1_center_mode_1(0xA0, 0x18, "PRESS A FOR HOST/JOIN", 0, 0.45f, 0.45f);
+        return;
+    }
+
+    if (!(gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT && gPlayerCount == 4 &&
+          gGameModeMenuColumn[gPlayerCount - 1] == 0)) {
+        return;
+    }
+
+    set_text_color((s32) gGlobalTimer % 3);
+    print_text1_center_mode_1(0xA0, 0x0A, "ONLINE MULTIPLAYER", 0, 0.6f, 0.6f);
+
+    if (gOnlineMenuState == ONLINE_MENU_STATE_PICK) {
+        const s8 onlineSelection = gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
+
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0x84, "VS = HOST GAME", 0, 0.45f, 0.45f);
+        print_text_mode_1(0x22, 0x96, "BATTLE = JOIN GAME", 0, 0.45f, 0.45f);
+        set_text_color((onlineSelection == 0) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+        print_text_mode_1(0x22, 0xAE, "HOST SELECTED", 0, 0.4f, 0.4f);
+        set_text_color((onlineSelection == 1) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+        print_text_mode_1(0x22, 0xBC, "JOIN SELECTED", 0, 0.4f, 0.4f);
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0xCE, "A: CONFIRM   B: BACK", 0, 0.45f, 0.45f);
+        return;
+    }
+
+    if (gOnlineMenuState == ONLINE_MENU_STATE_JOIN_CODE) {
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0x6F, "ENTER ROOM CODE", 0, 0.5f, 0.5f);
+
+        ch[1] = '\0';
+        for (i = 0; i < 4; i++) {
+            ch[0] = gOnlineRoomCodeInput[i];
+            set_text_color((i == gOnlineRoomCodeCursor) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+            print_text_mode_1(0x36 + (i * 0x10), 0x82, ch, 0, 0.85f, 0.85f);
+        }
+
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0x96, "U/D: CHANGE   L/R: MOVE", 0, 0.4f, 0.4f);
+        print_text_mode_1(0x22, 0xA4, "A: JOIN   B: BACK", 0, 0.45f, 0.45f);
+
+        status = NetGameplay_GetConnectionStatus();
+        switch (status) {
+            case 1:
+                set_text_color(TEXT_YELLOW);
+                print_text_mode_1(0x22, 0xB8, "CONNECTING...", 0, 0.45f, 0.45f);
+                break;
+            case 2:
+                set_text_color(TEXT_GREEN);
+                print_text_mode_1(0x22, 0xB8, "JOINED - OPENING CHARACTER SELECT", 0, 0.4f, 0.4f);
+                break;
+            case 3:
+                NetGameplay_GetLastError(errorText, sizeof(errorText));
+                set_text_color(TEXT_RED);
+                print_text_mode_1(0x22, 0xB8, errorText, 0, 0.35f, 0.35f);
+                break;
+        }
+        return;
+    }
+
+    if (gOnlineMenuState == ONLINE_MENU_STATE_HOST_WAIT) {
+        role = NetGameplay_GetRole();
+        status = NetGameplay_GetConnectionStatus();
+        switch (status) {
+            case 1:
+                snprintf(errorText, sizeof(errorText), "STATUS: CONNECTING");
+                break;
+            case 2:
+                snprintf(errorText, sizeof(errorText), "STATUS: CONNECTED");
+                break;
+            case 3:
+                snprintf(errorText, sizeof(errorText), "STATUS: FAILED");
+                break;
+            case 4:
+                snprintf(errorText, sizeof(errorText), "STATUS: DISCONNECTED");
+                break;
+            default:
+                snprintf(errorText, sizeof(errorText), "STATUS: IDLE");
+                break;
+        }
+
+        NetGameplay_GetRoomCode(roomCode, sizeof(roomCode));
+        if (roomCode[0] == '\0') {
+            snprintf(roomCode, sizeof(roomCode), "----");
+        }
+
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0x66, "HOST LOBBY", 0, 0.5f, 0.5f);
+        print_text_mode_1(0x22, 0x76, errorText, 0, 0.45f, 0.45f);
+
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0x87, "ROOM CODE:", 0, 0.45f, 0.45f);
+        if (gOnlineHostCodeVisible) {
+            set_text_color((s32) gGlobalTimer % 3);
+            print_text_mode_1(0x79, 0x87, roomCode, 0, 0.55f, 0.55f);
+        } else {
+            set_text_color(TEXT_YELLOW);
+            print_text_mode_1(0x79, 0x87, "HIDDEN", 0, 0.45f, 0.45f);
+        }
+
+        row = 0x9D;
+        set_text_color((gOnlineHostMenuSelection == 0) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+        print_text_mode_1(0x22, row, "CONTINUE", 0, 0.45f, 0.45f);
+
+        row += 0x0E;
+        set_text_color((gOnlineHostMenuSelection == 1) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+        print_text_mode_1(0x22, row, gOnlineHostCodeVisible ? "HIDE CODE" : "SHOW CODE", 0, 0.45f, 0.45f);
+
+        set_text_color((gOnlineHostMenuSelection == 2) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+        print_text_mode_1(0x96, row, "COPY", 0, 0.45f, 0.45f);
+
+        row += 0x0E;
+        set_text_color((gOnlineHostMenuSelection == 3) ? ((s32) gGlobalTimer % 3) : TEXT_YELLOW);
+        print_text_mode_1(0x22, row, "CANCEL HOSTING", 0, 0.45f, 0.45f);
+
+        set_text_color(TEXT_YELLOW);
+        print_text_mode_1(0x22, 0xCF, "U/D: SELECT   A: CONFIRM", 0, 0.4f, 0.4f);
+
+        if (gOnlineCodeCopiedTimer > 0) {
+            set_text_color(TEXT_GREEN);
+            print_text_mode_1(0x96, 0xC3, "COPIED", 0, 0.4f, 0.4f);
+        }
+
+        if (status == 3) {
+            NetGameplay_GetLastError(errorText, sizeof(errorText));
+            set_text_color(TEXT_RED);
+            print_text_mode_1(0x22, 0xDE, errorText, 0, 0.32f, 0.32f);
+        } else {
+            set_text_color(TEXT_GREEN);
+            print_text_mode_1(0x22, 0xDE, (role == 1) ? "ROLE: HOST" : ((role == 2) ? "ROLE: CLIENT" : "ROLE: NONE"),
+                              0, 0.35f, 0.35f);
+        }
+    }
+}
+
 static void draw_version(void) {
     s32 column = 0x138;
 
@@ -6480,28 +6633,46 @@ void render_menus(MenuItem* arg0) {
                 gSPGrayscale(gDisplayListHead++, false);
                 break;
             case MENU_ITEM_UI_GAME_SELECT:
+                if (gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT && gPlayerCount == 4 &&
+                    gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    draw_online_hint();
+                    break;
+                }
                 gDisplayListHead =
                     render_menu_textures(gDisplayListHead, seg2_game_select_texture, arg0->column, arg0->row);
                 if (CVarGetInteger("gShowSpaghettiVersion", true)) {
                     draw_version();
                     draw_debug();
                 }
+                draw_online_hint();
                 break;
             case MENU_ITEM_UI_1P_GAME:
             case MENU_ITEM_UI_2P_GAME:
             case MENU_ITEM_UI_3P_GAME:
             case MENU_ITEM_UI_4P_GAME:
+                if (gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT && gPlayerCount == 4 &&
+                    gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    break;
+                }
                 var_a1 = arg0->type - MENU_ITEM_UI_1P_GAME;
                 func_800A8270(var_a1, arg0);
                 func_800A0FA4(arg0, var_a1);
                 break;
             case MENU_ITEM_UI_OK:
+                if (gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT && gPlayerCount == 4 &&
+                    gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    break;
+                }
                 func_800A8564(arg0);
                 gDisplayListHead =
                     func_8009BC9C(gDisplayListHead, D_0200487C, arg0->column, arg0->row, 2, arg0->param1);
                 break;
             case MAIN_MENU_OPTION_GFX:
             case MAIN_MENU_DATA_GFX:
+                if (gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT && gPlayerCount == 4 &&
+                    gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    break;
+                }
                 var_a1 = arg0->type - MENU_ITEM_UI_OK;
                 var_v1 = arg0->type - MENU_ITEM_UI_GAME_SELECT;
                 if (arg0->param1 < 0x20) {
@@ -6529,6 +6700,10 @@ void render_menus(MenuItem* arg0) {
             case MENU_ITEM_TYPE_017:
             case MAIN_MENU_TIME_TRIALS_BEGIN:
             case MAIN_MENU_TIME_TRIALS_DATA:
+                if (gPlayerCount == 4 && gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT &&
+                    gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    break;
+                }
                 var_v1 = gGameModeSubMenuColumn[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
                 var_a1 = gGameModePlayerSelection[gPlayerCount - 1][gGameModeMenuColumn[gPlayerCount - 1]];
                 switch (arg0->type) {
@@ -6585,6 +6760,10 @@ void render_menus(MenuItem* arg0) {
                 gDisplayListHead = render_menu_textures(gDisplayListHead, sp9C, arg0->column, arg0->row);
                 break;
             case MENU_ITEM_TYPE_01B:
+                if (gPlayerCount == 4 && gMainMenuSelection == MAIN_MENU_MODE_SUB_SELECT &&
+                    gGameModeMenuColumn[gPlayerCount - 1] == 0) {
+                    break;
+                }
                 func_800A10CC(arg0);
                 break;
             case CHARACTER_SELECT_MENU_PLAYER_SELECT_BANNER:

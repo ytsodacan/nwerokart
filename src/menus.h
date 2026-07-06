@@ -112,6 +112,12 @@ enum PlayerSelectMenuSelectionTypes {
     PLAYER_SELECT_MENU_OK_GO_BACK // OK option after going back from map select
 };
 
+enum OnlineMenuStateTypes {
+    ONLINE_MENU_STATE_PICK = 0,
+    ONLINE_MENU_STATE_JOIN_CODE,
+    ONLINE_MENU_STATE_HOST_WAIT
+};
+
 /**
  * @brief Options for gDebugMenuSelection
  */
@@ -231,6 +237,12 @@ extern s8 gCharacterGridSelections[];
 extern bool gCharacterGridIsSelected[];
 extern s8 gSubMenuSelection;
 extern s8 gMainMenuSelection;
+extern s8 gOnlineMenuState;
+extern char gOnlineRoomCodeInput[5];
+extern s8 gOnlineRoomCodeCursor;
+extern s8 gOnlineHostMenuSelection;
+extern s8 gOnlineHostCodeVisible;
+extern s16 gOnlineCodeCopiedTimer;
 extern s8 gPlayerSelectMenuSelection;
 extern s8 gDebugMenuSelection;
 extern s8 gControllerPakMenuSelection;

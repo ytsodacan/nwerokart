@@ -42,6 +42,8 @@ const char* StatusLabel(Net::ConnectionStatus status) {
     return "Unknown";
 }
 
+void DrawOnlinePlayPanelContent(); // forward decl - defined below, called by both entry points above
+
 void DrawOnlinePlayPanel(WidgetInfo& info) {
     using namespace UIWidgets;
     DrawOnlinePlayPanelContent();

@@ -903,7 +903,15 @@ void func_8003C0F0(void) {
 }
 
 // See comment at call site in func_8003C0F0(). Race-mode scope only (the
-// networking layer doesn't currently sync Battle mode).
+// networking layer doesn't currently sync Battle mode). Runs for both host
+// and client: on a client, the local one-player spawn path (forced by
+// NetGameplay_ConfigureScreenModeForSession()) only ever spawns local index 0
+// as PLAYER_HUMAN - every other slot, INCLUDING the guest's own kart at its
+// assigned network slot, comes out of spawn_players_gp_one_player() as a
+// CPU-flagged, randomly-charactered racer. A CPU-flagged kart runs pathing AI
+// instead of ever reading gControllers[], so without this fixup a guest's own
+// kart would sit there driven by the CPU regardless of what real input
+// NetGameplay_PerFrameInput() correctly places into gControllers[localSlot].
 static void net_fixup_players_for_session(void) {
     s32 slot;
 
@@ -912,7 +920,7 @@ static void net_fixup_players_for_session(void) {
     }
 
     for (slot = 1; slot < NUM_PLAYERS; slot++) {
-        s32 characterId = NetGameplay_GetGuestCharacter(slot);
+        s32 characterId = NetGameplay_GetNetworkCharacterForSlot(slot);
         Player* player;
 
         if (characterId < 0) {

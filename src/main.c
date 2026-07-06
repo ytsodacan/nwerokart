@@ -1177,6 +1177,16 @@ void thread5_iteration(void) {
         } else {
             if (gGamestateNext == RACING) {
                 NetGameplay_ConsumeRaceAuthorization();
+                // Broadcasts to every connected guest the moment the HOST's
+                // own race actually starts, no matter which menu path got
+                // here - the host playing through their ordinary local menus
+                // (instead of the Online Play panel's dedicated "Start Race"
+                // button) used to never send a StartRaceMsg at all, leaving
+                // every guest stuck on their own character select screen
+                // forever. No-op for a guest or when no session is active;
+                // harmless to call even if "Start Race" already did this a
+                // frame earlier (guests just re-apply the same payload).
+                NetGameplay_HostBroadcastRaceStartIfHosting();
             }
             gGamestate = gGamestateNext;
             update_gamestate();
