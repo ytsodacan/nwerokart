@@ -32,6 +32,7 @@
 #include "engine/editor/Editor.h"
 #include "engine/tracks/Track.h"
 #include "engine/sky/Sky.h"
+#include "port/network/NetGameplayBridge.h"
 
 void init_hud(void) {
 
@@ -649,6 +650,15 @@ void init_hud_one_player(void) {
     // permuter magic
     long long why;
     s32 one = 1;
+    // Online: SCREEN_MODE_1P is exactly what NetGameplay_ConfigureScreenModeForSession()
+    // forces for BOTH host and guest. This whole function used to hardcode
+    // PLAYER_ONE unconditionally, meaning playerHUD[PLAYER_TWO] (index 1) -
+    // a guest's own kart - was left exactly as memset() zeroed it in
+    // reset_object_variable(), never given real screen coordinates at all.
+    // That's what produced garbled/overlapping HUD text once the draw calls
+    // were fixed to actually read from the local player's slot. Falls back
+    // to PLAYER_ONE (0) unchanged off-network.
+    s32 hudPlayerId = NetGameplay_GetLocalCameraPlayerIndex();
 
     D_8018D140 = 0;
     D_8018D150 = 0;
@@ -660,31 +670,31 @@ void init_hud_one_player(void) {
     func_8007055C(gScreenOneCtx);
     func_8007055C(gScreenTwoCtx);
     init_course_object();
-    playerHUD[PLAYER_ONE].speedometerX = 0x0156;
-    playerHUD[PLAYER_ONE].speedometerY = 0x0106;
-    D_8018CFEC = playerHUD[PLAYER_ONE].speedometerX + 0x18;
-    D_8018CFF4 = playerHUD[PLAYER_ONE].speedometerY + 6;
+    playerHUD[hudPlayerId].speedometerX = 0x0156;
+    playerHUD[hudPlayerId].speedometerY = 0x0106;
+    D_8018CFEC = playerHUD[hudPlayerId].speedometerX + 0x18;
+    D_8018CFF4 = playerHUD[hudPlayerId].speedometerY + 6;
     D_8016579E = 0xDD00;
-    playerHUD[PLAYER_ONE].rankX = 52;
-    playerHUD[PLAYER_ONE].rankY = 0x00C8;
-    playerHUD[PLAYER_ONE].slideRankX = 0;
-    playerHUD[PLAYER_ONE].slideRankY = 0;
-    playerHUD[PLAYER_ONE].stagingPosition = gGPCurrentRaceRankByPlayerId[0];
-    playerHUD[PLAYER_ONE].timerX = 0x012C;
-    playerHUD[PLAYER_ONE].lapCompletionTimeXs[0] = 0x012C;
-    playerHUD[PLAYER_ONE].lapCompletionTimeXs[1] = 0x012C;
-    playerHUD[PLAYER_ONE].timerY = 0x0011;
-    playerHUD[PLAYER_ONE].lapX = -40;
-    playerHUD[PLAYER_ONE].lapAfterImage1X = -40;
-    playerHUD[PLAYER_ONE].lapAfterImage2X = -40;
-    playerHUD[PLAYER_ONE].lapY = 0x0019;
-    playerHUD[PLAYER_ONE].itemBoxX = 0x00A0;
-    playerHUD[PLAYER_ONE].itemBoxY = -0x0020;
-    playerHUD[PLAYER_ONE].slideItemBoxX = 0;
-    playerHUD[PLAYER_ONE].slideItemBoxY = 0;
+    playerHUD[hudPlayerId].rankX = 52;
+    playerHUD[hudPlayerId].rankY = 0x00C8;
+    playerHUD[hudPlayerId].slideRankX = 0;
+    playerHUD[hudPlayerId].slideRankY = 0;
+    playerHUD[hudPlayerId].stagingPosition = gGPCurrentRaceRankByPlayerId[hudPlayerId];
+    playerHUD[hudPlayerId].timerX = 0x012C;
+    playerHUD[hudPlayerId].lapCompletionTimeXs[0] = 0x012C;
+    playerHUD[hudPlayerId].lapCompletionTimeXs[1] = 0x012C;
+    playerHUD[hudPlayerId].timerY = 0x0011;
+    playerHUD[hudPlayerId].lapX = -40;
+    playerHUD[hudPlayerId].lapAfterImage1X = -40;
+    playerHUD[hudPlayerId].lapAfterImage2X = -40;
+    playerHUD[hudPlayerId].lapY = 0x0019;
+    playerHUD[hudPlayerId].itemBoxX = 0x00A0;
+    playerHUD[hudPlayerId].itemBoxY = -0x0020;
+    playerHUD[hudPlayerId].slideItemBoxX = 0;
+    playerHUD[hudPlayerId].slideItemBoxY = 0;
     // permuter magic
     why = 0x000000A0;
-    init_item_window(gItemWindowObjectByPlayerId[0]);
+    init_item_window(gItemWindowObjectByPlayerId[hudPlayerId]);
     for (someIndex = 0, something = 35.0f; someIndex < 8; someIndex++, something += 32.0) {
         D_8018D0C8[someIndex] = 40.0f;
         D_8018D028[someIndex] = -24.0f;
@@ -701,9 +711,9 @@ void init_hud_one_player(void) {
     D_8018D3EC = 0x000000FF;
     D_8018D3F0 = 0x000000FF;
     D_8018D3F4 = one;
-    playerHUD[PLAYER_ONE].unk_4C = 0x0078;
-    playerHUD[PLAYER_ONE].unk_4A = 0x00A0;
-    playerHUD[PLAYER_ONE].rankScaling = 0.5f;
+    playerHUD[hudPlayerId].unk_4C = 0x0078;
+    playerHUD[hudPlayerId].unk_4A = 0x00A0;
+    playerHUD[hudPlayerId].rankScaling = 0.5f;
     D_801656B0 = 0;
     D_80165708 = 0x0028;
     D_8018D00C = 5.0f;

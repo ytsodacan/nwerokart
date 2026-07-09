@@ -1343,7 +1343,6 @@ void spawn_single_player_camera(u32 mode) {
     s32 localPlayerIndex = NetGameplay_GetLocalCameraPlayerIndex();
     Player* localPlayer = &gPlayers[localPlayerIndex];
     Vec3f spawn = {localPlayer->pos[0], localPlayer->pos[1], localPlayer->pos[2]};
-    Vec3f spawn2 = {gPlayerTwo->pos[0], gPlayerTwo->pos[1], gPlayerTwo->pos[2]};
 
     // Technically there should be a default case of mode 10 here. Except it never gets used.
     if (gModeSelection == GRAND_PRIX && !gDemoMode) {
@@ -1365,12 +1364,20 @@ void spawn_single_player_camera(u32 mode) {
     gScreenContexts[PLAYER_ONE].camera = camera;
     gScreenContexts[PLAYER_ONE].raceCamera = camera;
 
-    // For end of race scene
-    camera = CM_AddCamera(spawn2, gPlayerTwo->rotation[1], mode);
+    // For end of race scene. On an online client this must NOT be hardcoded
+    // to PLAYER_TWO - if this guest's own assigned network slot happens to be
+    // 1, that collides with the camera just attached above (both would point
+    // at index 1), leaving index 0 (the host, from this guest's point of
+    // view) with no camera at all. See NetGameplay_GetSecondaryCameraPlayerIndex().
+    s32 secondaryPlayerIndex = NetGameplay_GetSecondaryCameraPlayerIndex();
+    Player* secondaryPlayer = &gPlayers[secondaryPlayerIndex];
+    Vec3f spawn2 = {secondaryPlayer->pos[0], secondaryPlayer->pos[1], secondaryPlayer->pos[2]};
+
+    camera = CM_AddCamera(spawn2, secondaryPlayer->rotation[1], mode);
     if (!camera) {
         CM_ThrowRuntimeError("[spawn_players] [spawn_single_player_camera] NULL camera while attempting to create camera for player two");
     }
-    CM_AttachCamera(camera, PLAYER_TWO);
+    CM_AttachCamera(camera, secondaryPlayerIndex);
     gScreenContexts[PLAYER_TWO].camera = camera;
     gScreenContexts[PLAYER_TWO].raceCamera = camera;
 

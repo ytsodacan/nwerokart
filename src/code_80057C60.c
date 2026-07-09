@@ -38,6 +38,7 @@
 #include "data/some_data.h"
 #include <assets/textures/some_data.h>
 #include "port/Game.h"
+#include "port/network/NetGameplayBridge.h"
 #include "engine/Matrix.h"
 #include "engine/editor/Editor.h"
 #include "port/interpolation/FrameInterpolation.h"
@@ -729,17 +730,24 @@ void func_80058F78(void) {
         FrameInterpolation_RecordOpenChild("HudMatrix", 0);
 
         set_matrix_hud_screen();
+        // Online: this is the SCREEN_MODE_1P HUD path, which is exactly what
+        // NetGameplay_ConfigureScreenModeForSession() forces for BOTH host and
+        // guest. Hardcoding PLAYER_ONE here meant a guest whose kart is any
+        // slot other than 0 saw the HOST's item box/timer/lap count/rank the
+        // entire race, not their own - same root cause class as the earlier
+        // camera bug. Falls back to PLAYER_ONE unchanged off-network.
+        s32 hudPlayerId = NetGameplay_GetLocalCameraPlayerIndex();
         if ((!gDemoMode) && (gIsHUDVisible != 0) && (D_801657D8 == 0)) {
-            draw_item_window(PLAYER_ONE);
+            draw_item_window(hudPlayerId);
             if (gHUDModes != 2) {
-                render_hud_timer(PLAYER_ONE);
-                draw_simplified_lap_count(PLAYER_ONE);
+                render_hud_timer(hudPlayerId);
+                draw_simplified_lap_count(hudPlayerId);
                 func_8004EB38(0);
                 if (D_801657E6 != false) {
                     if (CVarGetInteger("gEnableDigitalSpeedometer", false) == true) {
-                        render_digital_speedometer(PLAYER_ONE);
+                        render_digital_speedometer(hudPlayerId);
                     }
-                    render_speedometer(PLAYER_ONE);
+                    render_speedometer(hudPlayerId);
                 }
             }
         }

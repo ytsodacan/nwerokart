@@ -1827,6 +1827,13 @@ void player_select_menu_act(struct Controller* controller, u16 controllerIdx) {
                     gCharacterGridIsSelected[controllerIdx] = true;
                     i = sCharacterGridOrder[gCharacterGridSelections[controllerIdx] - 1];
                     func_800C90F4(controllerIdx, 0x2900800e + (i << 4));
+                    // Online: forward this guest's actual pick to the host - see
+                    // NetGameplay_SendCharacterSelect() in NetGameplayBridge. No-op
+                    // on host/no-session; only controllerIdx 0 is ever a real local
+                    // human on a client machine in online play.
+                    if (controllerIdx == PLAYER_ONE) {
+                        NetGameplay_SendCharacterSelect(i);
+                    }
                 }
                 // L800B36F4
                 selected = false;

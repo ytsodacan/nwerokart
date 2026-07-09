@@ -147,6 +147,24 @@ void NetGameplay_ConsumeRaceAuthorization(void);
 // host/no-session.
 void NetGameplay_AuthorizeNativeRaceEntry(void);
 
+// Client only: called whenever the local player confirms a character on the
+// native player-select grid (menus.c) - forwards the pick to the host via
+// SendCharacterSelect() so BroadcastCurrentRaceSetupIfHosting() actually uses
+// what the guest chose instead of whatever SetLocalCharacter() defaulted to
+// at connect time (0/Mario). No-op on host/no-session.
+void NetGameplay_SendCharacterSelect(int characterId);
+
+// Client only: returns the OTHER connected online player's index (never the
+// local one) so spawn_single_player_camera() can attach its second/backup
+// camera correctly. Hardcoding PLAYER_TWO there breaks the moment this
+// client's own assigned slot IS 1 - that camera collides with the local
+// one, and slot 0 (the host, from a guest's point of view) ends up with NO
+// camera at all, which is exactly what produces repeated
+// "Could not find a camera using GetPlayerCamera()" spam for player 0.
+// Returns 1 (PLAYER_TWO) unchanged for host/no-session, preserving the
+// original single-player/local-multiplayer behavior.
+int NetGameplay_GetSecondaryCameraPlayerIndex(void);
+
 // Opens the online lobby UI window from C gameplay/menu code.
 void NetGameplay_OpenOnlineLobby(void);
 

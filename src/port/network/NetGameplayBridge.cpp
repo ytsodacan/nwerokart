@@ -21,6 +21,18 @@ const char* TrackBrowser_GetTrackResourceName(void);
 void TrackBrowser_SetTrack(const char* name);
 size_t TrackBrowser_GetTrackIndex(void);
 void NetGameplay_CopyTextToClipboard(const char* text);
+// Declared in code_800029B0.h - same reasoning as TrackBrowser above, avoid
+// pulling in that header's heavier deps just for this one variable.
+extern s16 gCurrentCourseId;
+// Rank (1..NUM_PLAYERS) -> player index reverse lookup, normally kept in
+// sync by update_race_position_data() (race_logic.c) every tick for every
+// player using THIS machine's own waypoint/lap-progress tracking. That's
+// wrong for a network-driven kart (only position/yaw ever get synced, not
+// path-index/lap-completion-percent), so on a client we re-derive it from
+// the host's authoritative KartState::place instead - see
+// NetGameplay_PerFrameSimSync(). Declared extern (no bound) rather than
+// pulled from race_logic.h to avoid that header's heavier deps.
+extern s16 gPlayerPositionLUT[];
 }
 
 // Set true for exactly one race entry whenever the client applies a StartRace
@@ -177,12 +189,6 @@ void BroadcastCurrentRaceSetupIfHosting() {
                                 characterForSlot);
 }
 
-// Character source that works for either role, unlike the host-only
-// NetGameplay_GetGuestCharacter(): on the host it's still that guest's Hello-
-// reported character; on a client, every slot's character was already copied
-// into gCharacterSelections[] wholesale by NetGameplay_ClientPollStartRace()
-// (see StartRaceMsg), so it's just a lookup there, guarded by the real
-// connected-player count computed by NetGameplay_ConfigureScreenModeForSession().
 struct Controller* ControllerForSlot(int slot) {
     // gControllers is sized NUM_PLAYERS, but this port's per-frame physical
     // read (read_controllers()) and per-player input consumption
@@ -293,6 +299,15 @@ extern "C" void NetGameplay_PerFrameSimSync(uint32_t frameNumber) {
                     Player* player = PlayerForSlot(slot);
                     if (player != nullptr) {
                         ApplyKartStateToPlayer(snapshot.players[slot], player);
+                        // Keep the reverse rank->slot LUT consistent with the
+                        // rank we just applied - update_race_position_data()
+                        // (race_logic.c) already wrote a stale/wrong entry for
+                        // this slot earlier this same frame using unreliable
+                        // local waypoint data; the host's snapshot is authoritative.
+                        const int rank = static_cast<int>(snapshot.players[slot].place);
+                        if (rank >= 0 && rank < NUM_PLAYERS) {
+                            gPlayerPositionLUT[rank] = slot;
+                        }
                     }
                 }
             }
@@ -356,6 +371,21 @@ extern "C" int NetGameplay_GetLocalCameraPlayerIndex(void) {
         }
     }
     return 0; // PLAYER_ONE
+}
+
+extern "C" int NetGameplay_GetSecondaryCameraPlayerIndex(void) {
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() != Net::Role::Client) {
+        return 1; // PLAYER_TWO - unchanged single-player/local-multiplayer behavior.
+    }
+    const int localSlot = session.GetLocalSlot();
+    const int totalPlayers = session.GetConnectedPlayerCount();
+    for (int slot = 0; slot < totalPlayers && slot < NUM_PLAYERS; ++slot) {
+        if (slot != localSlot) {
+            return slot;
+        }
+    }
+    return 1; // Fallback if we're somehow the only slot - keeps old behavior.
 }
 
 extern "C" void NetGameplay_HostStartRace(void) {
@@ -457,6 +487,14 @@ extern "C" void NetGameplay_AuthorizeNativeRaceEntry(void) {
         return;
     }
     sClientRaceAuthorizedByHost = true;
+}
+
+extern "C" void NetGameplay_SendCharacterSelect(int characterId) {
+    NetSession& session = NetSession::Instance();
+    if (session.GetRole() != Net::Role::Client) {
+        return;
+    }
+    session.SendCharacterSelect(static_cast<uint8_t>(characterId), true);
 }
 
 extern "C" int NetGameplay_GetRole(void) {
